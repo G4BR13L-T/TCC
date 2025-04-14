@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+            crossorigin="anonymous"></script>
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!--Custom-->
+    <link href="css/index.css" rel="stylesheet">
+    <script src="js/cadastro.js" defer></script>
+    <title>Cadastro</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Cadastro</h1>
+    <span class="campo-obrigatorio">*</span>
+    <span>Nome: </span>
+    <input type="text" id="nome"
+           class="form-control"
+           placeholder="Nome">
+    <span class="red" id="spnome"></span><br>
+    <span class="campo-obrigatorio">*</span>
+    <span>Matrícula: </span>
+    <input type="text" id="matricula"
+           class="form-control"
+           placeholder="Matrícula">
+    <span class="red" id="spmatricula"></span><br>
+    <span class="campo-obrigatorio">*</span>
+    <span>E-Mail: </span>
+    <input type="email" id="email"
+           class="form-control"
+           placeholder="E-Mail">
+    <span class="red" id="spemail"></span><br>
+    <span class="campo-obrigatorio">*</span>
+    <span>Senha: </span>
+    <input type="password" id="senha"
+           class="form-control"
+           placeholder="Senha">
+    <span class="red" id="spsenha"></span><br>
+    <span class="campo-obrigatorio">*</span>
+    <span>Confirme a senha: </span>
+    <input type="password" id="confsenha"
+           class="form-control"
+           placeholder="Confirmação">
+    <span class="red" id="spconfsenha"></span><br>
+    <span class="campo-obrigatorio">*</span>
+    <span>Nível de Poder:</span>
+    <div class="row">
+        <div class="col-3">
+            <input type="radio" id="super"
+                   name="poder" value="super">
+            <label for="super">SuperUsuário</label>
+        </div>
+        <div class="col-3">
+            <input type="radio" id="gestor"
+                   name="poder" value="gestor">
+            <label for="gestor">Gestor</label>
+        </div>
+        <div class="col-3">
+            <input type="radio" id="bilioteca"
+                   name="poder" value="biblioteca">
+            <label for="bilioteca">Biblioteca</label>
+        </div>
+        <div class="col-3">
+            <input type="radio" id="professor"
+                   name="poder" value="professor">
+            <label for="professor">Professor</label>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary mt-3" id="btCadastro">Cadastrar</button>
+</div>
+</body>
+</html>

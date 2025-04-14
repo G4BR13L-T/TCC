@@ -1,0 +1,10 @@
+.campo-obrigatorio {
+    color: #f33
+}
+.nao-preenchido {
+    box-shadow: 0 0 4px rgb(255,0,0,0.9999999999);
+}
+.red{
+    font-size: 10px;
+    color: #f00;
+}
