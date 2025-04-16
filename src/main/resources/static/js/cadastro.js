@@ -13,12 +13,12 @@ $('#nome, #matricula, #email, #senha, #confsenha').on("focusout", function(){
 });
 
 $('#btCadastro').on("click",function(){
-    let nome = $('#nome').val();
-    let matricula = $('#matricula').val();
-    let email = $('#email').val();
-    let senha = $('#senha').val();
-    let confsenha = $('#confsenha').val();
-    let poder = $('input[name="poder"]:checked').val();
+    let nome = $('#nome').val().trim();
+    let matricula = $('#matricula').val().trim();
+    let email = $('#email').val().trim();
+    let senha = $('#senha').val().trim();
+    let confsenha = $('#confsenha').val().trim();
+    let poder = $('input[name="poder"]:checked').val().trim();
     let i=1;
     $.ajax({
         url: "/gerar-cadastro",

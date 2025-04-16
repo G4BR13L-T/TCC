@@ -5,6 +5,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -16,12 +17,12 @@ public class C_Cadastro {
 
     @PostMapping("/gerar-cadastro")
     @ResponseBody
-    public M_Resposta postGerarCadastro(@Param("nome") String nome,
-                                        @Param("matricula") String matricula,
-                                        @Param("email") String email,
-                                        @Param("senha") String senha,
-                                        @Param("confsenha") String confsenha,
-                                        @Param("poder") String poder) {
+    public M_Resposta postGerarCadastro(@RequestParam("nome") String nome,
+                                        @RequestParam("matricula") String matricula,
+                                        @RequestParam("email") String email,
+                                        @RequestParam("senha") String senha,
+                                        @RequestParam("confsenha") String confsenha,
+                                        @RequestParam("poder") String poder) {
         return null;
     }
 }

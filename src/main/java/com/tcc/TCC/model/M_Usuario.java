@@ -15,7 +15,10 @@ public class M_Usuario {
     @Column(nullable = false)
     private String senha;
     @Column(nullable = false)
-    private String poder;
+    private String email;
+    @ManyToOne
+    @JoinColumn(name = "id_poder", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fkpoder"), nullable = false)
+    private M_NivelPoder poder;
 
     public Long getId() {
         return id;
@@ -49,11 +52,19 @@ public class M_Usuario {
         this.senha = senha;
     }
 
-    public String getPoder() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public M_NivelPoder getPoder() {
         return poder;
     }
 
-    public void setPoder(String poder) {
+    public void setPoder(M_NivelPoder poder) {
         this.poder = poder;
     }
 }
