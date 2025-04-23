@@ -1,24 +1,33 @@
 package com.tcc.TCC.service;
 
+import com.tcc.TCC.model.M_NivelPoder;
+import com.tcc.TCC.model.M_Notebook;
 import com.tcc.TCC.model.M_Resposta;
+import com.tcc.TCC.model.M_Usuario;
+import com.tcc.TCC.repository.R_NivelPoder;
+import com.tcc.TCC.repository.R_Notebook;
 import com.tcc.TCC.repository.R_Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class S_Cadastro {
     @Autowired
     private R_Usuario rUsuario;
+    @Autowired
+    private R_NivelPoder rNivelPoder;
+    @Autowired
+    private R_Notebook rNotebook;
 
-    public M_Resposta realizarCadastro(String nome,
-                                       String matricula,
-                                       String email,
-                                       String senha,
-                                       String confsenha,
-                                       String poderS) {
+    public M_Resposta realizarCadastroUser(String nome,
+                                           String matricula,
+                                           String email,
+                                           String senha,
+                                           String confsenha,
+                                           String poderS) {
         boolean sucesso = true;
         String mensagem = "";
+        Long poderL = Long.parseLong(poderS);
         if (nome.isBlank()) {
             sucesso = false;
             mensagem += "O campo \"Nome\" deve ser preenchido!\n";
@@ -42,8 +51,57 @@ public class S_Cadastro {
             mensagem += "O campo \"Confirmação\" deve ser preenchido!\n";
         }else if(!senha.equals(confsenha)){
             sucesso = false;
-            mensagem += "Os campos \"Senhaz\" e \"Confirmação\" devem ser iguais!\n";
+            mensagem += "Os campos \"Senha\" e \"Confirmação\" devem ser iguais!\n";
         }
-        return null;
+        if(poderL < 2 || poderL > 4){
+            sucesso = false;
+            mensagem += "Favor selecione um valor válido!\n";
+        }
+        if(sucesso){
+            try{
+                M_Usuario mUsuario = new M_Usuario();
+                M_NivelPoder poder = rNivelPoder.getReferenceById(poderL);
+                poder.setId(poderL);
+                mUsuario.setNome(nome);
+                mUsuario.setMatricula(matricula);
+                mUsuario.setEmail(email);
+                mUsuario.setSenha(senha);
+                mUsuario.setPoder(poder);
+                rUsuario.save(mUsuario);
+                mensagem += "Usuário cadastrado com sucesso!";
+            }catch (Exception e){
+                sucesso = false;
+                mensagem += "Erro interno durante o cadastro!";
+            }
+        }
+        return new M_Resposta(sucesso,mensagem);
+    }
+    public M_Resposta realizarCadastroNote(Integer numero,
+                                           String codigo){
+        boolean sucesso = true;
+        String mensagem = "";
+        for (M_Notebook note: rNotebook.findAll()) {
+            if(note.getNumero().equals(numero)){
+                sucesso = false;
+                mensagem += "Esse notebook já foi cadastrado, tente outro!\n";
+            }
+        }
+        if(codigo.isBlank()){
+            sucesso = false;
+            mensagem += "O campo \"Código de Patrimônio\" deve ser preenchido!\n";
+        }
+        if(sucesso){
+            try{
+                M_Notebook notebook = new M_Notebook();
+                notebook.setNumero(numero);
+                notebook.setCodigoPatrimonio(codigo);
+                rNotebook.save(notebook);
+                mensagem += "O notebook foi cadastrado com sucesso!\n";
+            }catch (Exception e){
+                sucesso = false;
+                mensagem += "Erro interno durante o cadastro!";
+            }
+        }
+        return new M_Resposta(sucesso,mensagem);
     }
 }

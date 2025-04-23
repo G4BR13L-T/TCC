@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#"></a>-->
+<!--                </li>-->
+                <li class="nav-item dropdown" th:if="${usuario.poder.id == 1 || usuario.poder.id == 2}">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">Cadastro</a>
+                    <ul class="dropdown-menu">
+                        <li><a id="caduser" class="dropdown-item" href="/cadastro-usuario">Usuários</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a id="cadnote" class="dropdown-item" href="/cadastro-notebook">Notebooks</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item" th:if="${usuario.poder.id == 3}">
+                    <a id="cadnotee" class="nav-link" href="/cadastro-notebook">Cadastro de Notebooks</a>
+                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="/consumo">Consumo</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
+<!--                </li>-->
+            </ul>
+            <a class="btn btn-danger" id="btnLogout">LogOut</a>
+        </div>
+    </div>
+</nav>

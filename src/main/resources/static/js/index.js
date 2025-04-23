@@ -24,11 +24,10 @@ $('#btEntrar').on("click",function(){
                     if(response.sucesso){
                         window.location.href = "/";
                     }else{
-                        $('#senha').val("");
-                        $('#senha').addClass('nao-preenchido');
+                        $('#senha').val("").addClass('nao-preenchido');
                         $('#spsenha').text("O campo \"Senha\" precisa ser preenchido!")
                         if(matricula == ""){
-                            $('#matricula').addClass('nao-preenchido');
+                            $('#matricula').val("").addClass('nao-preenchido');
                             $('#spmatricula').text("O campo \"Matrícula\" precisa ser preenchido!")
                         }
                     }
