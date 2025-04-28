@@ -22,23 +22,15 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!--CUSTOMS-->
     <script src="js/navbar.js" defer></script>
-    <link href="css/index.css" rel="stylesheet">
-    <script src="js/cadastroN.js" defer></script>
-    <title>Cadastro de Notebooks</title>
+    <script src="js/reserva.js" defer></script>
+    <title>Reserva</title>
 </head>
 <body>
 <div th:insert="navbar/navbar"></div>
 <div class="container mt-5">
-    <h1>Cadastro de Notebooks</h1>
-    <span class="campo-obrigatorio">*</span>
-    <span>Código de Patrimônio: </span>
-    <input type="text" id="codigo"
-           class="form-control"
-           placeholder="Código de Patrimônio">
-    <span class="red" id="spcodigo"></span><br>
-    <span class="campo-obrigatorio">*</span>
-    <span>Número: </span>
-    <input type="number" id="numero"
+    <h1>Reserva de Notebooks</h1>
+    <span>Quantidade: </span>
+    <input type="number" id="quantidade"
            class="form-control" min="1"
            placeholder="Número" value="1" onchange="deixaNumeroInteiro()">
     <span class="red" id="spnumero"></span><br>

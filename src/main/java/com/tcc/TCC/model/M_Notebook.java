@@ -12,6 +12,7 @@ public class M_Notebook {
     private String codigoPatrimonio;
     @Column(nullable = false, unique = true)
     private Integer numero;
+    private Boolean reservado = false;
 
     public Long getId() {
         return id;
@@ -35,5 +36,13 @@ public class M_Notebook {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Boolean getReservado() {
+        return reservado;
+    }
+
+    public void setReservado(Boolean reservado) {
+        this.reservado = reservado;
     }
 }

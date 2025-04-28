@@ -1,17 +1,15 @@
 $('#cadnote, #cadnotee').addClass("disabled");
-function deixaNumeroInteiro(){
+
+function deixaNumeroInteiro() {
     let numero = $('#numero').val().trim();
     numero -= numero%1;
-    if (numero < 1){
-        numero = 1;
-    }
-    if (numero == ""){
+    if (numero < 1 || numero == ""){
         numero = 1
     }
+    $('#numero').val(numero)
 }
 
 $('#numero, #codigo').on("focusout", function(){
-    deixaNumeroInteiro();
     let campo = $(this).val().trim();
     let nomeCampo = $(this).attr("id");
     let placeholder = $(this).attr("placeholder");
@@ -26,7 +24,6 @@ $('#numero, #codigo').on("focusout", function(){
 });
 
 $('#btCadastro').on("click",function(){
-    deixaNumeroInteiro();
     let numero = $('#numero').val().trim();
     let codigo = $('#codigo').val().trim();
     let i=1;
@@ -70,4 +67,3 @@ $('#btCadastro').on("click",function(){
         }
     });
 });
-
