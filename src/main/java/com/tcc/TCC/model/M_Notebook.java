@@ -12,7 +12,7 @@ public class M_Notebook {
     private String codigoPatrimonio;
     @Column(nullable = false, unique = true)
     private Integer numero;
-    private Boolean reservado = false;
+    private Boolean reservado;
 
     public Long getId() {
         return id;

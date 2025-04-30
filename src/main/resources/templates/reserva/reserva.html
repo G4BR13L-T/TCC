@@ -29,12 +29,28 @@
 <div th:insert="navbar/navbar"></div>
 <div class="container mt-5">
     <h1>Reserva de Notebooks</h1>
-    <span>Quantidade: </span>
+    <span class="h3">O total de notebooks não reservados é de: </span>
+    <span class="h3" th:text="${free.size}"></span><br>
+    <span>Quantidade que deseja reservar: </span>
     <input type="number" id="quantidade"
            class="form-control" min="1"
            placeholder="Número" value="1" onchange="deixaNumeroInteiro()">
     <span class="red" id="spnumero"></span><br>
-    <button type="button" class="btn btn-primary mt-3" id="btCadastro">Cadastrar</button>
+    <input type="checkbox" id="especifico"
+           name="especifico" onclick="especifico()">
+    <label for="especifico">Desejo escolher notebooks específicos.</label><br>
+    <div class="row d-none" id="notes" >
+        <div class="col-12">
+            <h5>Selecione os notebooks que deseja: </h5>
+        </div>
+        <div class="col-1" th:each="notebook: ${notebooks}">
+            <input type="checkbox" th:id="${notebook.numero}"
+                   th:data-id="${notebook.id}"
+                   name="notebook">
+            <label th:for="${notebook.numero}" th:text="${notebook.numero}"></label>
+        </div>
+    </div>
+    <button type="button" class="btn btn-primary mt-3" id="btReserva" onclick="reservar()">Reservar</button>
 </div>
 </body>
 </html>

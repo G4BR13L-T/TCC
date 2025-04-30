@@ -11,6 +11,7 @@ import java.util.List;
 public interface R_Notebook extends JpaRepository<M_Notebook,Long> {
     @Query(value = "select * " +
             "from tcc.notebook " +
-            "where not reservado",nativeQuery = true)
+            "where not reservado " +
+            "order by numero",nativeQuery = true)
     List<M_Notebook> getAllNotReserved();
 }
