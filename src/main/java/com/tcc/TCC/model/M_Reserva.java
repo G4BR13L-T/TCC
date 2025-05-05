@@ -13,6 +13,8 @@ public class M_Reserva {
     @ManyToOne
     @JoinColumn(name = "id_usuario", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_usuario"), nullable = false)
     private M_Usuario usuario;
+//    @ManyToOne
+//    @JoinColumn(name = "id_notebooks", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_notebook"), nullable = false)
     private String notebooks;
     private Integer quantidade;
     private Boolean especifico;

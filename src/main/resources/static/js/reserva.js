@@ -23,6 +23,7 @@ function reservar(){
     let quantidade = $('#quantidade').val();
     let especifico = true;
     let notebooks = $('input[name="notebook"]:checked');
+    let iduser = $('#quantidade').data('iduser');
     if(notebooks.length == 0){
         notebooks = "";
         especifico = false;

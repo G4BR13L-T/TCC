@@ -36,8 +36,8 @@ public class C_Reserva {
     @ResponseBody
     public M_Resposta postReserva(@RequestParam("quantidade") Integer quantidade,
                                   @RequestParam("especifico") Boolean especifico,
-                                  @RequestParam("notebooks") String notebooks){
-
-        return new M_Resposta();
+                                  @RequestParam("notebooks") String notebooks,
+                                  HttpSession session){
+        return sReserva.reservar(quantidade, especifico, notebooks,session);
     }
 }

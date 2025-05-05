@@ -33,7 +33,7 @@
     <span class="h3" th:text="${free.size}"></span><br>
     <span>Quantidade que deseja reservar: </span>
     <input type="number" id="quantidade"
-           class="form-control" min="1"
+           class="form-control" min="1" th:data-iduser="${usuario.id}"
            placeholder="Número" value="1" onchange="deixaNumeroInteiro()">
     <span class="red" id="spnumero"></span><br>
     <input type="checkbox" id="especifico"
