@@ -19,4 +19,8 @@ public interface R_Notebook extends JpaRepository<M_Notebook,Long> {
             "from tcc.notebook " +
             "where id = :id", nativeQuery = true)
     M_Notebook getNoteById(@Param("id")Long id);
+    @Query(value = "select * " +
+            "from tcc.notebook " +
+            "order by numero", nativeQuery = true)
+    List<M_Notebook> findEvery();
 }

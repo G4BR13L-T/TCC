@@ -23,7 +23,6 @@ function reservar(){
     let quantidade = $('#quantidade').val();
     let especifico = true;
     let notebooks = $('input[name="notebook"]:checked');
-    let iduser = $('#quantidade').data('iduser');
     if(notebooks.length == 0){
         notebooks = "";
         especifico = false;
@@ -47,6 +46,33 @@ function reservar(){
             especifico: especifico,
             notebooks: notebooks
         },
-        success: function(response){}
+        success: function(response){
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                },
+                didClose: function(){
+                    if(response.sucesso){
+                        window.location.href = "/";
+                    }else{
+                        if(especifico){
+                            especificidade = 2;
+                            especifico();
+                        }
+                        $('#quantidade').val(1);
+                    }
+                },
+                });
+            Toast.fire({
+                icon: response.sucesso ? "success" : "error",
+                title: response.mensagem
+            });
+        }
     });
 }

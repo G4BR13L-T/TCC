@@ -2,6 +2,8 @@ package com.tcc.TCC.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "notebook", schema = "tcc")
 public class M_Notebook {
