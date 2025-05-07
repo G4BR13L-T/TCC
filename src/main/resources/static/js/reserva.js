@@ -1,13 +1,20 @@
 $('#resnote').addClass("disabled");
+
+let max = $('#quantidade').data('max');
+let especificidade = 1
+
 function deixaNumeroInteiro() {
-    let numero = $('#quantidade').val() ;
+    let numero = $('#quantidade').val();
     numero -= numero%1;
     if (numero < 1 || numero == ""){
         numero = 1
     }
+    if(numero > max){
+        numero = max;
+    }
     $('#quantidade').val(numero)
 }
-let especificidade = 1
+
 function especifico(){
     if (especificidade == 1){
         $('#notes').removeClass('d-none');
@@ -15,10 +22,11 @@ function especifico(){
     }else{
         $('#notes').addClass('d-none');
         let selecionados = $('input[name="notebook"]');
-        selecionados.prop('checked', false)
+        selecionados.prop('checked', false);
         especificidade -= 1;
     }
 }
+
 function reservar(){
     let quantidade = $('#quantidade').val();
     let especifico = true;
@@ -61,11 +69,7 @@ function reservar(){
                     if(response.sucesso){
                         window.location.href = "/";
                     }else{
-                        if(especifico){
-                            especificidade = 2;
-                            especifico();
-                        }
-                        $('#quantidade').val(1);
+                        window.location.href = "/reserva-notebook";
                     }
                 },
                 });

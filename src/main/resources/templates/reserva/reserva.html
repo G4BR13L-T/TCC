@@ -29,11 +29,16 @@
 <div th:insert="navbar/navbar"></div>
 <div class="container mt-5">
     <h1>Reserva de Notebooks</h1>
+    <div class="row">
+        <div class="col-2">
+            <input type="datetime-local" class="form-control" th:min="${today}" th:value="${today}"></br>
+        </div>
+    </div>
     <span class="h3">O total de notebooks não reservados é de: </span>
     <span class="h3" th:text="${free.size}"></span><br>
     <span>Quantidade que deseja reservar: </span>
     <input type="number" id="quantidade"
-           class="form-control" min="1" th:data-iduser="${usuario.id}"
+           class="form-control" min="1" th:max="${free.size}" th:data-max="${free.size}"
            placeholder="Número" value="1" onchange="deixaNumeroInteiro()">
     <span class="red" id="spnumero"></span><br>
     <input type="checkbox" id="especifico"
@@ -43,7 +48,7 @@
         <div class="col-12">
             <h5>Selecione os notebooks que deseja: </h5>
         </div>
-        <div class="col-1" th:each="notebook: ${notebooks}">
+        <div class="col-1" th:each="notebook: ${free}">
             <input type="checkbox" th:id="${notebook.numero}"
                    th:data-id="${notebook.id}"
                    name="notebook">

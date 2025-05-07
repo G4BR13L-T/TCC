@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class C_Reserva {
     private final S_Reserva sReserva;
@@ -25,6 +27,8 @@ public class C_Reserva {
         M_Usuario mUsuario = (M_Usuario) session.getAttribute("usuario");
         if (mUsuario != null) {
             model.addAttribute("usuario", mUsuario);
+            model.addAttribute("today", LocalDateTime.now().minusNanos(LocalDateTime.now().getNano())
+                    .minusSeconds(LocalDateTime.now().getSecond()));
             model.addAttribute("notebooks", sReserva.getAllNotebooks());
             model.addAttribute("free", sReserva.getAllFreeNotebooks());
             return "reserva/reserva";
