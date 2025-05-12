@@ -95,7 +95,6 @@ public class S_Cadastro {
                 M_Notebook notebook = new M_Notebook();
                 notebook.setNumero(numero);
                 notebook.setCodigoPatrimonio(codigo);
-                notebook.setReservado(false);
                 rNotebook.save(notebook);
                 mensagem += "O notebook foi cadastrado com sucesso!\n";
             }catch (Exception e){

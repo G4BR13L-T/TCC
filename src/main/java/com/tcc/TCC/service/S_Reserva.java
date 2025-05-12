@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,29 +22,31 @@ public class S_Reserva {
     @Autowired
     R_NotReserve rNotReserve;
 
-    public List<M_Notebook> getAllNotebooks() {
-        return rNotebook.findEvery();
-    }
-
     public List<M_Notebook> getAllFreeNotebooks() {
-        return rNotebook.getAllNotReserved();
+        return rNotebook.findAllFreeInSpecificDate(LocalDate.now());
     }
 
     public M_Resposta reservar(Integer quantidade,
                                Boolean especifico,
                                String notebooks,
-                               HttpSession session) {
+                               HttpSession session,
+                               String horario) {
         boolean sucesso = true;
         String mensagem = "";
         int qtdlivres = getAllFreeNotebooks().size();
         List<M_Notebook> mNotebooks = new ArrayList<>();
+
+        if (horario.isEmpty()) {
+            mensagem += "O horário não pode ser vazio!\n";
+            sucesso = false;
+        }
 
         if (quantidade < 1) {
             mensagem += "A quantidade deve ser maior do que 0!\n";
             sucesso = false;
         }
 
-        if(quantidade > qtdlivres){
+        if (quantidade > qtdlivres) {
             sucesso = false;
             mensagem += "A quantidade a ser reservada deve estar dentro do limite, " +
                     "o qual atualmente é: " + qtdlivres + "\n";
@@ -53,9 +56,10 @@ public class S_Reserva {
             mensagem += "A especificidade não pode ser nula!\n";
             sucesso = false;
         }
-        
+
         if (sucesso) {
             try {
+                LocalDateTime date = LocalDateTime.parse(horario + ":00.000000");
                 if (especifico) {
                     String[] notes = notebooks.split(";");
                     if (!notes[0].isEmpty()) {
@@ -68,15 +72,11 @@ public class S_Reserva {
                         if (mNotebooks.size() == livres.size()) break;
                     }
                 }
-                for (M_Notebook notebook : mNotebooks) {
-                    notebook.setReservado(true);
-                    rNotebook.save(notebook);
-                }
                 M_Reserva reserva = new M_Reserva();
                 reserva.setEspecifico(especifico);
                 reserva.setUsuario((M_Usuario) session.getAttribute("usuario"));
                 reserva.setQuantidade(quantidade);
-                reserva.setHorario(LocalDateTime.now());
+                reserva.setHorario(date);
                 rReserva.save(reserva);
                 for (M_Notebook note : mNotebooks) {
                     M_NotReserve mNotReserve = new M_NotReserve();
@@ -86,13 +86,15 @@ public class S_Reserva {
                 }
                 mensagem += "Reserva realizada com sucesso!\n";
             } catch (Exception e) {
-                System.err.println(e);
+                System.err.println("" + e);
                 mensagem += "Erro interno durante o precesso de reserva!\n";
                 sucesso = false;
-            } finally {
-                return new M_Resposta(sucesso, mensagem);
             }
         }
         return new M_Resposta(sucesso, mensagem);
+    }
+
+    public List<M_Notebook> getAllFreeNotebooksInSpecificDate(LocalDateTime data) {
+        return rNotebook.findAllFreeInSpecificDate(data.toLocalDate());
     }
 }

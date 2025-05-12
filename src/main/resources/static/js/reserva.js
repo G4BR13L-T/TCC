@@ -1,7 +1,7 @@
 $('#resnote').addClass("disabled");
 
 let max = $('#quantidade').data('max');
-let especificidade = 1
+let especificidade = 1;
 
 function deixaNumeroInteiro() {
     let numero = $('#quantidade').val();
@@ -13,6 +13,22 @@ function deixaNumeroInteiro() {
         numero = max;
     }
     $('#quantidade').val(numero)
+}
+
+function pesquisaNotbooksDisponiveis(){
+    let data = $('#data').val();
+    let i = 1;
+    $.ajax({
+        url: "/notes-disponiveis",
+        method: "POST",
+        data: {data: data},
+        success: function(response){
+            $("#notes").html(response);
+            let disponiveis = $('input[name="notebook"]').size();
+            $('#qtd').text(disponiveis);
+        }
+    })
+    horario = data;
 }
 
 function especifico(){
@@ -31,6 +47,7 @@ function reservar(){
     let quantidade = $('#quantidade').val();
     let especifico = true;
     let notebooks = $('input[name="notebook"]:checked');
+    let horario = $('#data').val();
     if(notebooks.length == 0){
         notebooks = "";
         especifico = false;
@@ -45,14 +62,15 @@ function reservar(){
             }
         }
     }
-    let i=1;
+    let i = 1;
     $.ajax({
         url: "/reservar",
         method: "POST",
         data: {
             quantidade: quantidade,
             especifico: especifico,
-            notebooks: notebooks
+            notebooks: notebooks,
+            horario: horario
         },
         success: function(response){
             const Toast = Swal.mixin({

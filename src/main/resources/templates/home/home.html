@@ -31,6 +31,14 @@
     <div class="row">
         <div class="col-6">
             <h3>Atuais:</h3>
+            <div th:each="reserva-notebook: ${reservas}">
+                <div class="col-3">
+                    <div th:each="reserva: ${reserva-notebook}">
+                        <span class="h4">Id: </span>
+                        <span th:text="${reserva.id}"></span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="col-6">
             <h3>Futuras: </h3>

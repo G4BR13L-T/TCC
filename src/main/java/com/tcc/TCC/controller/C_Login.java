@@ -2,6 +2,7 @@ package com.tcc.TCC.controller;
 
 import com.tcc.TCC.model.M_Resposta;
 import com.tcc.TCC.model.M_Usuario;
+import com.tcc.TCC.service.S_Home;
 import com.tcc.TCC.service.S_Login;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class C_Login {
     private final S_Login sLogin;
+    private final S_Home sHome;
 
-    public C_Login(S_Login sLogin) {
+    public C_Login(S_Login sLogin, S_Home sHome) {
         this.sLogin = sLogin;
+        this.sHome = sHome;
     }
 
     @GetMapping("/")
@@ -25,7 +28,8 @@ public class C_Login {
         M_Usuario mUsuario = (M_Usuario) session.getAttribute("usuario");
         if (mUsuario != null) {
             model.addAttribute("usuario",mUsuario);
-            return "home/home";
+            model.addAttribute("reservas",sHome.getAllReservasAtuais(mUsuario));
+                return "home/home";
         }
         return "index";
     }
