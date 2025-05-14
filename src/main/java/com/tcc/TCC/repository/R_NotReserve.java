@@ -10,8 +10,4 @@ import java.util.List;
 
 @Repository
 public interface R_NotReserve extends JpaRepository<M_NotReserve, Long> {
-    @Query(value = "select * " +
-            "from tcc.notreserve " +
-            "where id_reserva = :id", nativeQuery = true)
-    List<M_NotReserve> getAllByIdReserva(@Param("id") Long id);
 }

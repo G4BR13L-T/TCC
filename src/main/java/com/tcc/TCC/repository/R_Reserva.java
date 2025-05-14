@@ -14,7 +14,12 @@ public interface R_Reserva extends JpaRepository<M_Reserva,Long> {
 
     @Query(value = "select * " +
             "from tcc.reserva " +
-            "where cast(horario as date) = current_date " +
-            "order by horario", nativeQuery = true)
+            "where cast(horario_inicial as date) = current_date " +
+            "order by horario_inicial", nativeQuery = true)
     List<M_Reserva> findAllOfToday();
+    @Query(value = "select * " +
+            "from tcc.reserva " +
+            "where horario_inicial > now() " +
+            "order by horario_inicial", nativeQuery = true  )
+    List<M_Reserva> findAllFuture();
 }

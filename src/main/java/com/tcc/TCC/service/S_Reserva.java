@@ -22,10 +22,14 @@ public class S_Reserva {
     @Autowired
     R_NotReserve rNotReserve;
 
-    public List<M_Notebook> getAllFreeNotebooks() {
-        return rNotebook.findAllFreeInSpecificDate(LocalDate.now());
-    }
-
+    /**
+     * @param quantidade
+     * @param especifico
+     * @param notebooks
+     * @param session
+     * @param horario
+     * @return M_Resposta
+     */
     public M_Resposta reservar(Integer quantidade,
                                Boolean especifico,
                                String notebooks,
@@ -33,7 +37,8 @@ public class S_Reserva {
                                String horario) {
         boolean sucesso = true;
         String mensagem = "";
-        int qtdlivres = getAllFreeNotebooks().size();
+        LocalDateTime date = LocalDateTime.parse(horario + ":00.000000");
+        int qtdlivres = getAllFreeNotebooksInSpecificDate(date).size();
         List<M_Notebook> mNotebooks = new ArrayList<>();
 
         if (horario.isEmpty()) {
@@ -59,14 +64,13 @@ public class S_Reserva {
 
         if (sucesso) {
             try {
-                LocalDateTime date = LocalDateTime.parse(horario + ":00.000000");
                 if (especifico) {
                     String[] notes = notebooks.split(";");
                     if (!notes[0].isEmpty()) {
                         for (String note : notes) mNotebooks.add(rNotebook.getNoteById(Long.parseLong(note)));
                     }
                 } else {
-                    List<M_Notebook> livres = getAllFreeNotebooks();
+                    List<M_Notebook> livres = getAllFreeNotebooksInSpecificDate(date);
                     for (int i = 0; i < quantidade; i++) {
                         mNotebooks.add(livres.get(i));
                         if (mNotebooks.size() == livres.size()) break;
@@ -76,7 +80,7 @@ public class S_Reserva {
                 reserva.setEspecifico(especifico);
                 reserva.setUsuario((M_Usuario) session.getAttribute("usuario"));
                 reserva.setQuantidade(quantidade);
-                reserva.setHorario(date);
+                reserva.setHorarioInicial(date);
                 rReserva.save(reserva);
                 for (M_Notebook note : mNotebooks) {
                     M_NotReserve mNotReserve = new M_NotReserve();
@@ -94,7 +98,11 @@ public class S_Reserva {
         return new M_Resposta(sucesso, mensagem);
     }
 
+    /**
+     * @param data
+     * @return Lista de Notebooks em date-time específico
+     */
     public List<M_Notebook> getAllFreeNotebooksInSpecificDate(LocalDateTime data) {
-        return rNotebook.findAllFreeInSpecificDate(data.toLocalDate());
+        return rNotebook.findAllFreeInSpecificDate(data);
     }
 }

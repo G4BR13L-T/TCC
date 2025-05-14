@@ -29,7 +29,8 @@ public class C_Login {
         if (mUsuario != null) {
             model.addAttribute("usuario",mUsuario);
             model.addAttribute("reservas",sHome.getAllReservasAtuais(mUsuario));
-                return "home/home";
+            model.addAttribute("futuras",sHome.getAllReservasFuturas(mUsuario));
+            return "home/home";
         }
         return "index";
     }

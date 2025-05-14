@@ -16,7 +16,11 @@ public class M_Reserva {
     private M_Usuario usuario;
     private Integer quantidade;
     private Boolean especifico;
-    private LocalDateTime horario;
+    private LocalDateTime horarioInicial;
+    private LocalDateTime horarioFinal;
+
+    @OneToMany(mappedBy = "reserva")
+    private List<M_NotReserve> reservaNotes;
 
     public Long getId() {
         return id;
@@ -49,11 +53,27 @@ public class M_Reserva {
         this.especifico = especifico;
     }
 
-    public LocalDateTime getHorario() {
-        return horario;
+    public LocalDateTime getHorarioInicial() {
+        return horarioInicial;
     }
 
-    public void setHorario(LocalDateTime horario) {
-        this.horario = horario;
+    public void setHorarioInicial(LocalDateTime horarioInicial) {
+        this.horarioInicial = horarioInicial;
+    }
+
+    public LocalDateTime getHorarioFinal() {
+        return horarioFinal;
+    }
+
+    public void setHorarioFinal(LocalDateTime horarioFinal) {
+        this.horarioFinal = horarioFinal;
+    }
+
+    public List<M_NotReserve> getReservaNotes() {
+        return reservaNotes;
+    }
+
+    public void setReservaNotes(List<M_NotReserve> reservaNotes) {
+        this.reservaNotes = reservaNotes;
     }
 }

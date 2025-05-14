@@ -32,7 +32,9 @@ public class C_Reserva {
             model.addAttribute("usuario", mUsuario);
             model.addAttribute("today", LocalDateTime.now().minusNanos(LocalDateTime.now().getNano())
                     .minusSeconds(LocalDateTime.now().getSecond()));
-            model.addAttribute("free", sReserva.getAllFreeNotebooks());
+            model.addAttribute("today50", LocalDateTime.now().minusNanos(LocalDateTime.now().getNano())
+                    .minusSeconds(LocalDateTime.now().getSecond()).plusMinutes(50));
+            model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificDate(LocalDateTime.now()));
             return "reserva/reserva";
         }
         return "redirect:/";

@@ -12,7 +12,7 @@ public class M_NotReserve {
     @ManyToOne
     @JoinColumn(name = "id_reserva", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_reserva"), nullable = false)
     private M_Reserva reserva;
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "id_notebook", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_notebook"), nullable = false)
     private M_Notebook notebook;
 

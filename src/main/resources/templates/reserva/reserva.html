@@ -31,10 +31,19 @@
     <h1>Reserva de Notebooks</h1>
     <div class="row">
         <div class="col-2">
-            <input id="data" type="datetime-local"
+            <span>Horário Inicial: </span>
+            <input id="datai" type="datetime-local"
                    class="form-control"
                    th:min="${today}"
                    th:value="${today}"
+                   onchange="pesquisaNotbooksDisponiveis()"></br>
+        </div>
+        <div class="col-2">
+            <span>Horário Inicial: </span>
+            <input id="dataf" type="datetime-local"
+                   class="form-control"
+                   th:min="${today50}"
+                   th:value="${today50}"
                    onchange="pesquisaNotbooksDisponiveis()"></br>
         </div>
     </div>

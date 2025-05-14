@@ -12,6 +12,12 @@ import java.util.List;
 public class S_Login {
     @Autowired
     private R_Usuario rUsuario;
+
+    /**
+     * @param matricula
+     * @param senha
+     * @return M_Resposta
+     */
     public M_Resposta validaLogin(String matricula, String senha){
         String mensagem = "";
         boolean sucesso = true;
@@ -39,8 +45,5 @@ public class S_Login {
         resposta.setSucesso(sucesso);
         resposta.setObject(mUsuario);
         return resposta;
-    }
-    public List<M_Usuario> getAllUsuario(){
-        return rUsuario.findAll();
     }
 }

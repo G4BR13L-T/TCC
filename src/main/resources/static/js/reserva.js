@@ -1,7 +1,7 @@
 $('#resnote').addClass("disabled");
 
-let max = $('#quantidade').data('max');
 let especificidade = 1;
+let max = $('#quantidade').data('max');
 
 function deixaNumeroInteiro() {
     let numero = $('#quantidade').val();
@@ -16,19 +16,24 @@ function deixaNumeroInteiro() {
 }
 
 function pesquisaNotbooksDisponiveis(){
-    let data = $('#data').val();
-    let i = 1;
-    $.ajax({
-        url: "/notes-disponiveis",
-        method: "POST",
-        data: {data: data},
-        success: function(response){
-            $("#notes").html(response);
-            let disponiveis = $('input[name="notebook"]').size();
-            $('#qtd').text(disponiveis);
-        }
-    })
-    horario = data;
+    let data = $('#datai').val();
+    if(data != null){
+        let i = 1;
+        $.ajax({
+            url: "/notes-disponiveis",
+            method: "POST",
+            data: {data: data},
+            success: function(response){
+                $("#notes").html(response);
+                let disponiveis = $('input[name="notebook"]');
+                let qtd = disponiveis.length;
+                $('#qtd').text(qtd);
+                max = qtd;
+            }
+        });
+    }else {
+        $('#datai').val(now());
+    }
 }
 
 function especifico(){
@@ -47,7 +52,8 @@ function reservar(){
     let quantidade = $('#quantidade').val();
     let especifico = true;
     let notebooks = $('input[name="notebook"]:checked');
-    let horario = $('#data').val();
+    let horarioI = $('#datai').val();
+    let horarioF = $('#dataf').val();
     if(notebooks.length == 0){
         notebooks = "";
         especifico = false;
@@ -70,7 +76,7 @@ function reservar(){
             quantidade: quantidade,
             especifico: especifico,
             notebooks: notebooks,
-            horario: horario
+            horario: horarioI
         },
         success: function(response){
             const Toast = Swal.mixin({

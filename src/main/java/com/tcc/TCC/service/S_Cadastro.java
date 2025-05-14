@@ -19,6 +19,16 @@ public class S_Cadastro {
     @Autowired
     private R_Notebook rNotebook;
 
+    /**
+     * Realiza o cadastro de um novo usuário
+     * @param nome
+     * @param matricula
+     * @param email
+     * @param senha
+     * @param confsenha
+     * @param poderS
+     * @return M_Resposta
+     */
     public M_Resposta realizarCadastroUser(String nome,
                                            String matricula,
                                            String email,
@@ -76,6 +86,13 @@ public class S_Cadastro {
         }
         return new M_Resposta(sucesso,mensagem);
     }
+
+    /**
+     * Realiza o cadastro de um novo notebook
+     * @param numero
+     * @param codigo
+     * @return M_Resposta
+     */
     public M_Resposta realizarCadastroNote(Integer numero,
                                            String codigo){
         boolean sucesso = true;
