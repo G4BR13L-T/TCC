@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,21 +26,34 @@ public class S_Reserva {
      * @param especifico
      * @param notebooks
      * @param session
-     * @param horario
+     * @param horarioI
+     * @param horarioF
      * @return M_Resposta
      */
     public M_Resposta reservar(Integer quantidade,
                                Boolean especifico,
                                String notebooks,
-                               HttpSession session,
-                               String horario) {
+                               String horarioI,
+                               String horarioF,
+                               HttpSession session) {
         boolean sucesso = true;
         String mensagem = "";
-        LocalDateTime date = LocalDateTime.parse(horario + ":00.000000");
-        int qtdlivres = getAllFreeNotebooksInSpecificDate(date).size();
+        LocalDateTime dateS = null;
+        LocalDateTime dateF = null;
+        int qtdlivres = getAllFreeNotebooksInSpecificDate(dateS).size();
         List<M_Notebook> mNotebooks = new ArrayList<>();
+        try {
+            dateS = LocalDateTime.parse(horarioI + ":00.000000");
+            dateF = LocalDateTime.parse(dateS.toLocalDate().toString() + "T" + horarioF + ":00.000000");
+            if (dateF.isBefore(dateS)) {
+                mensagem += "O Horario Final não pode ser antes do Inicial";
+                sucesso = false;
+            }
+        } catch (Exception e) {
+            sucesso = false;
+        }
 
-        if (horario.isEmpty()) {
+        if (horarioI.isEmpty() || horarioF.isEmpty()) {
             mensagem += "O horário não pode ser vazio!\n";
             sucesso = false;
         }
@@ -61,7 +73,10 @@ public class S_Reserva {
             mensagem += "A especificidade não pode ser nula!\n";
             sucesso = false;
         }
-
+        if (dateS == null || dateF == null) {
+            mensagem += "Erro interno";
+            sucesso = false;
+        }
         if (sucesso) {
             try {
                 if (especifico) {
@@ -70,7 +85,7 @@ public class S_Reserva {
                         for (String note : notes) mNotebooks.add(rNotebook.getNoteById(Long.parseLong(note)));
                     }
                 } else {
-                    List<M_Notebook> livres = getAllFreeNotebooksInSpecificDate(date);
+                    List<M_Notebook> livres = getAllFreeNotebooksInSpecificDate(dateS);
                     for (int i = 0; i < quantidade; i++) {
                         mNotebooks.add(livres.get(i));
                         if (mNotebooks.size() == livres.size()) break;
@@ -80,7 +95,8 @@ public class S_Reserva {
                 reserva.setEspecifico(especifico);
                 reserva.setUsuario((M_Usuario) session.getAttribute("usuario"));
                 reserva.setQuantidade(quantidade);
-                reserva.setHorarioInicial(date);
+                reserva.setHorarioInicial(dateS);
+                reserva.setHorarioFinal(dateF);
                 rReserva.save(reserva);
                 for (M_Notebook note : mNotebooks) {
                     M_NotReserve mNotReserve = new M_NotReserve();

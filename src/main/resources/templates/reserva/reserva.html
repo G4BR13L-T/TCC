@@ -39,12 +39,11 @@
                    onchange="pesquisaNotbooksDisponiveis()"></br>
         </div>
         <div class="col-2">
-            <span>Horário Inicial: </span>
-            <input id="dataf" type="datetime-local"
+            <span>Horário Final: </span>
+            <input id="dataf" type="time"
                    class="form-control"
-                   th:min="${today50}"
                    th:value="${today50}"
-                   onchange="pesquisaNotbooksDisponiveis()"></br>
+                   onchange="consertaHorarioF()"></br>
         </div>
     </div>
     <span class="h3">O total de notebooks não reservados é de: </span>

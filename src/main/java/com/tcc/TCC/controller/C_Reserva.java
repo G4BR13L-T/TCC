@@ -5,6 +5,7 @@ import com.tcc.TCC.model.M_Resposta;
 import com.tcc.TCC.model.M_Usuario;
 import com.tcc.TCC.service.S_Reserva;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.jdbc.core.support.AbstractLobCreatingPreparedStatementCallback;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Controller
@@ -32,8 +34,8 @@ public class C_Reserva {
             model.addAttribute("usuario", mUsuario);
             model.addAttribute("today", LocalDateTime.now().minusNanos(LocalDateTime.now().getNano())
                     .minusSeconds(LocalDateTime.now().getSecond()));
-            model.addAttribute("today50", LocalDateTime.now().minusNanos(LocalDateTime.now().getNano())
-                    .minusSeconds(LocalDateTime.now().getSecond()).plusMinutes(50));
+            model.addAttribute("today50", LocalTime.now().minusNanos(LocalTime.now().getNano())
+                    .minusSeconds(LocalTime.now().getSecond()).plusMinutes(50));
             model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificDate(LocalDateTime.now()));
             return "reserva/reserva";
         }
@@ -45,9 +47,10 @@ public class C_Reserva {
     public M_Resposta postReserva(@RequestParam("quantidade") Integer quantidade,
                                   @RequestParam("especifico") Boolean especifico,
                                   @RequestParam("notebooks") String notebooks,
-                                  @RequestParam("horario") String horario,
+                                  @RequestParam("horarioI") String horarioI,
+                                  @RequestParam("horarioF") String horarioF,
                                   HttpSession session) {
-        return sReserva.reservar(quantidade, especifico, notebooks, session, horario);
+        return sReserva.reservar(quantidade, especifico, notebooks, horarioI, horarioF, session);
     }
 
     @PostMapping("notes-disponiveis")

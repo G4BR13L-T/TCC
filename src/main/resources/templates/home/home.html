@@ -30,8 +30,11 @@
 <div class="container">
     <h1 class="mt-5">Reservas: </h1>
     <div class="row">
-        <div class="col-6">
-            <h3>Atuais:</h3>
+        <div class="col-6 lista">
+            <div class="cabecalho-lista">
+                <h3>Atuais:</h3>
+                <hr>
+            </div>
             <div class="box" th:each="reserva: ${reservas}">
                 <div class="text-center">
                     <span class="h6">Id: </span>
@@ -59,8 +62,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-6">
-            <h3>Futuras: </h3>
+        <div class="col-6 lista">
+            <div class="cabecalho-lista">
+                <h3>Futuras: </h3>
+                <hr>
+            </div>
             <div class="box" th:each="reserva: ${futuras}">
                 <div class="text-center">
                     <span class="h6">Id: </span>
