@@ -28,7 +28,7 @@ public class C_Login {
         M_Usuario mUsuario = (M_Usuario) session.getAttribute("usuario");
         if (mUsuario != null) {
             model.addAttribute("usuario",mUsuario);
-            model.addAttribute("reservas",sHome.getAllReservasAtuais(mUsuario));
+            model.addAttribute("reservas",sHome.getAllReservasAtuais());
             model.addAttribute("futuras",sHome.getAllReservasFuturas(mUsuario));
             return "home/home";
         }

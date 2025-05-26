@@ -21,20 +21,8 @@ public class S_Home {
      * @param mUsuario
      * @return Reservas atuais
      */
-    public Object getAllReservasAtuais(M_Usuario mUsuario){
+    public Object getAllReservasAtuais(){
         List<M_Reserva> mReservas = rReserva.findAllOfToday();
-        M_Usuario anonimo = new M_Usuario();
-        anonimo.setId(-1L);
-        anonimo.setNome("Anônimo");
-        anonimo.setMatricula(null);
-        anonimo.setEmail(null);
-        anonimo.setSenha(null);
-        anonimo.setPoder(null);
-        if (mReservas != null) for (M_Reserva mReserva: mReservas) {
-            if(!mUsuario.getNome().equals(mReserva.getUsuario().getNome())){
-                mReserva.setUsuario(anonimo);
-            }
-        }
         return mReservas;
     }
 
@@ -44,18 +32,6 @@ public class S_Home {
      */
     public Object getAllReservasFuturas(M_Usuario mUsuario){
         List<M_Reserva> mReservas = rReserva.findAllFuture();
-        M_Usuario anonimo = new M_Usuario();
-        anonimo.setId(-1L);
-        anonimo.setNome("Anônimo");
-        anonimo.setMatricula(null);
-        anonimo.setEmail(null);
-        anonimo.setSenha(null);
-        anonimo.setPoder(null);
-        if (mReservas != null) for (M_Reserva mReserva: mReservas) {
-            if(!mUsuario.getNome().equals(mReserva.getUsuario().getNome())){
-                mReserva.setUsuario(anonimo);
-            }
-        }
         return mReservas;
     }
 }

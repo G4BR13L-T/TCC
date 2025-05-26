@@ -30,66 +30,70 @@
 <div class="container">
     <h1 class="mt-5">Reservas: </h1>
     <div class="row">
-        <div class="col-6 lista">
-            <div class="cabecalho-lista">
+        <div class="col-6">
+            <div>
                 <h3>Atuais:</h3>
-                <hr>
+                <hr class="mb-0">
             </div>
-            <div class="box" th:each="reserva: ${reservas}">
-                <div class="text-center">
-                    <span class="h6">Id: </span>
-                    <span th:text="${reserva.id}"></span>
-                </div>
-                <hr class="p-0 m-0 mt-1"/>
-                <div class="row">
-                    <div class="col-6">
-                        <span class="h6">Quantidade: </span>
-                        <span th:text="${reserva.quantidade}"></span>
-                        </br>
-                        <span class="h6">Usuário: </span>
-                        <span th:text="${reserva.usuario.nome}"></span>
-                        </br>
-                        <span class="h6">Horário Inicial: </span>
-                        <span th:text="${#temporals.format(reserva.horarioInicial, 'dd/MM/yyyy HH:mm')}"></span>
-                        </br>
-                        <span class="h6">Horário Final: </span>
-                        <span th:text="${#temporals.format(reserva.horarioFinal, 'dd/MM/yyyy HH:mm')}"></span>
+            <div class="lista">
+                <div class="box" th:each="reserva: ${reservas}">
+                    <div class="text-center">
+                        <span class="h6">Id: </span>
+                        <span th:text="${reserva.id}"></span>
                     </div>
-                    <div class="col-6">
-                        <span class="h6">Notebooks: </span>
-                        <span th:each="reservaNote: ${reserva.reservaNotes}" th:text="${reservaNote.notebook.numero + '; '}"></span>
+                    <hr class="p-0 m-0 mt-1"/>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="h6">Quantidade: </span>
+                            <span th:text="${reserva.quantidade}"></span>
+                            </br>
+                            <span class="h6">Usuário: </span>
+                            <span th:text="${reserva.usuario.nome}"></span>
+                            </br>
+                            <span class="h6">Horário Inicial: </span>
+                            <span th:text="${#temporals.format(reserva.horarioInicial, 'dd/MM/yyyy HH:mm')}"></span>
+                            </br>
+                            <span class="h6">Horário Final: </span>
+                            <span th:text="${#temporals.format(reserva.horarioFinal, 'dd/MM/yyyy HH:mm')}"></span>
+                        </div>
+                        <div class="col-6">
+                            <span class="h6">Notebooks: </span>
+                            <span th:each="reservaNote: ${reserva.reservaNotes}" th:text="${reservaNote.notebook.numero + '; '}"></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6 lista">
-            <div class="cabecalho-lista">
+        <div class="col-6">
+            <div>
                 <h3>Futuras: </h3>
-                <hr>
+                <hr class="mb-0">
             </div>
-            <div class="box" th:each="reserva: ${futuras}">
-                <div class="text-center">
-                    <span class="h6">Id: </span>
-                    <span th:text="${reserva.id}"></span>
-                </div>
-                <hr class="p-0 m-0 mt-1"/>
-                <div class="row">
-                    <div class="col-6">
-                        <span class="h6">Quantidade: </span>
-                        <span th:text="${reserva.quantidade}"></span>
-                        </br>
-                        <span class="h6">Usuário: </span>
-                        <span th:text="${reserva.usuario.nome}"></span>
-                        </br>
-                        <span class="h6">Horário Inicial: </span>
-                        <span th:text="${#temporals.format(reserva.horarioInicial, 'dd/MM/yyyy HH:mm')}"></span>
-                        </br>
-                        <span class="h6">Horário Final: </span>
-                        <span th:text="${#temporals.format(reserva.horarioFinal, 'dd/MM/yyyy HH:mm')}"></span>
+            <div class="lista">
+                <div class="box" th:each="reserva: ${futuras}">
+                    <div class="text-center">
+                        <span class="h6">Id: </span>
+                        <span th:text="${reserva.id}"></span>
                     </div>
-                    <div class="col-6">
-                        <span class="h6">Notebooks: </span>
-                        <span th:each="reservaNote: ${reserva.reservaNotes}" th:text="${reservaNote.notebook.numero + '; '}"></span>
+                    <hr class="p-0 m-0 mt-1"/>
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="h6">Quantidade: </span>
+                            <span th:text="${reserva.quantidade}"></span>
+                            </br>
+                            <span class="h6">Usuário: </span>
+                            <span th:text="${reserva.usuario.nome}"></span>
+                            </br>
+                            <span class="h6">Horário Inicial: </span>
+                            <span th:text="${#temporals.format(reserva.horarioInicial, 'dd/MM/yyyy HH:mm')}"></span>
+                            </br>
+                            <span class="h6">Horário Final: </span>
+                            <span th:text="${#temporals.format(reserva.horarioFinal, 'dd/MM/yyyy HH:mm')}"></span>
+                        </div>
+                        <div class="col-6">
+                            <span class="h6">Notebooks: </span>
+                            <span th:each="reservaNote: ${reserva.reservaNotes}" th:text="${reservaNote.notebook.numero + '; '}"></span>
+                        </div>
                     </div>
                 </div>
             </div>
