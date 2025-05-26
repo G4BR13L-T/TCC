@@ -37,9 +37,18 @@
             </div>
             <div class="lista">
                 <div class="box" th:each="reserva: ${reservas}">
-                    <div class="text-center">
-                        <span class="h6">Id: </span>
-                        <span th:text="${reserva.id}"></span>
+                    <div class="row">
+                        <div class="col-2">
+                            <span style="visibility: hidden;">:)</span>
+                        </div>
+                        <div class="col-8 text-center">
+                            <span class="h6">Id: </span>
+                            <span th:text="${reserva.id}"></span>
+                        </div>
+                        <div class="col-2 text-end">
+                            <button type="button" class="btn btn-close" aria-label="delete"
+                                    th:if="${usuario.poder.id == reserva.usuario.poder.id}"></button>
+                        </div>
                     </div>
                     <hr class="p-0 m-0 mt-1"/>
                     <div class="row">

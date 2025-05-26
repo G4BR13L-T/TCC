@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
+
 @Controller
 public class C_Login {
     private final S_Login sLogin;
@@ -28,8 +30,9 @@ public class C_Login {
         M_Usuario mUsuario = (M_Usuario) session.getAttribute("usuario");
         if (mUsuario != null) {
             model.addAttribute("usuario",mUsuario);
+            model.addAttribute("now", LocalDateTime.now());
             model.addAttribute("reservas",sHome.getAllReservasAtuais());
-            model.addAttribute("futuras",sHome.getAllReservasFuturas(mUsuario));
+            model.addAttribute("futuras",sHome.getAllReservasFuturas());
             return "home/home";
         }
         return "index";

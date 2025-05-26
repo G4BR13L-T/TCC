@@ -18,19 +18,24 @@ public class S_Home {
     private R_NotReserve rNotReserve;
 
     /**
-     * @param mUsuario
      * @return Reservas atuais
      */
     public Object getAllReservasAtuais(){
         List<M_Reserva> mReservas = rReserva.findAllOfToday();
-        return mReservas;
+        List<Object> finale = new ArrayList<>();
+        for (M_Reserva res: mReservas) {
+            finale.add(res);
+            boolean calculavel = false;
+            if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusHours(1L))) calculavel = true;
+            finale.add(calculavel);
+        }
+        return finale;
     }
 
     /**
-     * @param mUsuario
      * @return Reservas futuras
      */
-    public Object getAllReservasFuturas(M_Usuario mUsuario){
+    public Object getAllReservasFuturas(){
         List<M_Reserva> mReservas = rReserva.findAllFuture();
         return mReservas;
     }
