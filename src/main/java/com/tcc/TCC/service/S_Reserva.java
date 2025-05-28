@@ -91,12 +91,15 @@ public class S_Reserva {
                         if (mNotebooks.size() == livres.size()) break;
                     }
                 }
+                M_Status status = new M_Status();
+                status.setId(1L);
                 M_Reserva reserva = new M_Reserva();
                 reserva.setEspecifico(especifico);
                 reserva.setUsuario((M_Usuario) session.getAttribute("usuario"));
                 reserva.setQuantidade(quantidade);
                 reserva.setHorarioInicial(dateS);
                 reserva.setHorarioFinal(dateF);
+                reserva.setStatus(status);
                 rReserva.save(reserva);
                 for (M_Notebook note : mNotebooks) {
                     M_NotReserve mNotReserve = new M_NotReserve();

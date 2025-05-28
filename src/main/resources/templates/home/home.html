@@ -23,6 +23,7 @@
     <!--CUSTOMS-->
     <link href="css/geral.css" rel="stylesheet">
     <script src="js/navbar.js" defer></script>
+    <script src="js/home.js" defer></script>
     <title>Home</title>
 </head>
 <body>
@@ -47,7 +48,8 @@
                         </div>
                         <div class="col-2 text-end">
                             <button type="button" class="btn btn-close" aria-label="delete"
-                                    th:if="${usuario.poder.id == reserva.usuario.poder.id}"></button>
+                                    th:if="${usuario.poder.id == reserva.usuario.poder.id and reserva.cancelavel}"
+                                    th:data-idres="${reserva.id}" onclick="cancelarReserva(this)"></button>
                         </div>
                     </div>
                     <hr class="p-0 m-0 mt-1"/>

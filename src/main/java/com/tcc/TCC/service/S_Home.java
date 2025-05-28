@@ -24,10 +24,17 @@ public class S_Home {
         List<M_Reserva> mReservas = rReserva.findAllOfToday();
         List<Object> finale = new ArrayList<>();
         for (M_Reserva res: mReservas) {
-            finale.add(res);
-            boolean calculavel = false;
-            if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusHours(1L))) calculavel = true;
-            finale.add(calculavel);
+            M_ViewReserva mViewReserva = new M_ViewReserva();
+            mViewReserva.setId(res.getId());
+            mViewReserva.setUsuario(res.getUsuario());
+            mViewReserva.setReservaNotes(res.getReservaNotes());
+            mViewReserva.setQuantidade(res.getQuantidade());
+            mViewReserva.setHorarioInicial(res.getHorarioInicial());
+            mViewReserva.setHorarioFinal(res.getHorarioFinal());
+            boolean cancelavel = false;
+            if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
+            mViewReserva.setCancelavel(cancelavel);
+            finale.add(mViewReserva);
         }
         return finale;
     }
@@ -38,5 +45,24 @@ public class S_Home {
     public Object getAllReservasFuturas(){
         List<M_Reserva> mReservas = rReserva.findAllFuture();
         return mReservas;
+    }
+    public M_Resposta cancelReserve(Long id){
+        boolean sucesso = true;
+        String mensagem = "";
+        try {
+            M_Reserva mReserva = rReserva.findElementById(id);
+            if(mReserva.getStatus().getId() == 1){
+                M_Status status = new M_Status();
+                status.setId(3L);
+                mReserva.setStatus(status);
+                rReserva.save(mReserva);
+                mensagem += "Cancelamento realizado com sucesso!\n";
+            }
+        }catch (Exception e){
+            System.err.println(e);
+            sucesso = false;
+            mensagem+= "Erro interno durante o cancelamento da reserva!\n";
+        }
+        return new M_Resposta(sucesso,mensagem);
     }
 }

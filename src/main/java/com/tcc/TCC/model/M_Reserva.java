@@ -18,6 +18,9 @@ public class M_Reserva {
     private Boolean especifico;
     private LocalDateTime horarioInicial;
     private LocalDateTime horarioFinal;
+    @ManyToOne
+    @JoinColumn(name = "id_status", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_status"), nullable = false)
+    private M_Status status;
 
     @OneToMany(mappedBy = "reserva")
     private List<M_NotReserve> reservaNotes;
@@ -75,5 +78,13 @@ public class M_Reserva {
 
     public void setReservaNotes(List<M_NotReserve> reservaNotes) {
         this.reservaNotes = reservaNotes;
+    }
+
+    public M_Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(M_Status status) {
+        this.status = status;
     }
 }
