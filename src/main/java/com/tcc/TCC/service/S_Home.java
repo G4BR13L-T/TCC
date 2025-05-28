@@ -55,6 +55,7 @@ public class S_Home {
                 M_Status status = new M_Status();
                 status.setId(3L);
                 mReserva.setStatus(status);
+                mReserva.setHorarioFinal(LocalDateTime.now());
                 rReserva.save(mReserva);
                 mensagem += "Cancelamento realizado com sucesso!\n";
             }
