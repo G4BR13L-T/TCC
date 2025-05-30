@@ -53,6 +53,7 @@ function consertaHorarioF(){
             minuteF = minuteI;
         }
     }
+    if(minuteF.toString() === "0") minuteF = "00";
     horarioF = hourF + ":" + minuteF;
     $('#dataf').val(horarioF);
 }
