@@ -44,7 +44,21 @@ public class S_Home {
      */
     public Object getAllReservasFuturas(){
         List<M_Reserva> mReservas = rReserva.findAllFuture();
-        return mReservas;
+        List<Object> finale = new ArrayList<>();
+        for (M_Reserva res: mReservas) {
+            M_ViewReserva mViewReserva = new M_ViewReserva();
+            mViewReserva.setId(res.getId());
+            mViewReserva.setUsuario(res.getUsuario());
+            mViewReserva.setReservaNotes(res.getReservaNotes());
+            mViewReserva.setQuantidade(res.getQuantidade());
+            mViewReserva.setHorarioInicial(res.getHorarioInicial());
+            mViewReserva.setHorarioFinal(res.getHorarioFinal());
+            boolean cancelavel = false;
+            if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
+            mViewReserva.setCancelavel(cancelavel);
+            finale.add(mViewReserva);
+        }
+        return finale;
     }
     public M_Resposta cancelReserve(Long id){
         boolean sucesso = true;

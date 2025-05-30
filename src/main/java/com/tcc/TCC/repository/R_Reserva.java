@@ -23,6 +23,7 @@ public interface R_Reserva extends JpaRepository<M_Reserva, Long> {
     @Query(value = "select * " +
             "from tcc.reserva " +
             "where horario_inicial > now() " +
+            "and id_status != 3 " +
             "order by horario_inicial", nativeQuery = true)
     List<M_Reserva> findAllFuture();
 
