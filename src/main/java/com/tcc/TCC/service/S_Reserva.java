@@ -45,10 +45,11 @@ public class S_Reserva {
                     mReserva.setStatus(emAtraso);
                     System.out.println("Reserva " + mReserva.getId() + " em atraso!");
                 }
+
+                System.out.println("Reservas modificadas e salvas!");
+                rReserva.saveAll(mReservas);
             }
         }
-        System.out.println("Reservas modificadas e salvas!");
-        rReserva.saveAll(mReservas);
     }
 
     /**

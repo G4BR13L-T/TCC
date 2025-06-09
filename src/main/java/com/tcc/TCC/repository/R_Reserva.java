@@ -34,6 +34,6 @@ public interface R_Reserva extends JpaRepository<M_Reserva, Long> {
 
     @Query(value = "select * " +
             "from tcc.reserva " +
-            "where id = 1 or id = 2",nativeQuery = true)
+            "where id_status = 1 or id_status = 2",nativeQuery = true)
     List<M_Reserva> findAllInWaitOrCourse();
 }

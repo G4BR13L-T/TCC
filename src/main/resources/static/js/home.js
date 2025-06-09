@@ -57,7 +57,22 @@ function adicionarStatus(){
             });
         }
         if ($(this).data('status') == 2){
-            //$(this).css("background", "#9f9");
+            $(this).css("background", "#bfb");
+            let spans = $(this).find('span');
+            spans.each(function () {
+                if ($(this).prev().text().trim() === "Horário Final:") {
+                    $(this).css('color', '#0d0');
+                }
+                if ($(this).text().trim() === "Horário Final:"){
+                    $(this).css('color', '#0d0');
+                }
+                if ($(this).prev().text().trim() === "Horário Inicial:") {
+                    $(this).css('color', '#0d0');
+                }
+                if ($(this).text().trim() === "Horário Inicial:"){
+                    $(this).css('color', '#0d0');
+                }
+            });
         }
     });
 }
