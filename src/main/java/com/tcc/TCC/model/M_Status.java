@@ -10,6 +10,16 @@ public class M_Status {
     private Long id;
     private String status;
 
+    public M_Status() {
+        id = null;
+        status = "";
+    }
+
+    public M_Status(Long id) {
+        this.id = id;
+        status = "";
+    }
+
     public Long getId() {
         return id;
     }

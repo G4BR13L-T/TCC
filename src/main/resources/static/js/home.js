@@ -1,3 +1,4 @@
+adicionarStatus();
 function cancelarReserva(botao){
     Swal.fire({
         title: "Tem certeza que deseja cancelar esta reserva?",
@@ -37,6 +38,26 @@ function cancelarReserva(botao){
                     });
                 }
             });
+        }
+    });
+}
+function adicionarStatus(){
+    let reservas = $('.box');
+    reservas.each(function() {
+        if ($(this).data('status') == 8) {
+            $(this).css("background", "#fbb");
+            let spans = $(this).find('span');
+            spans.each(function () {
+                if ($(this).prev().text().trim() === "Horário Final:") {
+                    $(this).css('color', '#f00');
+                }
+                if ($(this).text().trim() === "Horário Final:"){
+                    $(this).css('color', '#f00');
+                }
+            });
+        }
+        if ($(this).data('status') == 2){
+            //$(this).css("background", "#9f9");
         }
     });
 }

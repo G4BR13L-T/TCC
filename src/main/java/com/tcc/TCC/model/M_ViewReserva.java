@@ -10,6 +10,7 @@ public class M_ViewReserva {
     private Integer quantidade;
     private LocalDateTime horarioInicial;
     private LocalDateTime horarioFinal;
+    private M_Status status;
     private boolean cancelavel;
 
     public Long getId() {
@@ -58,6 +59,14 @@ public class M_ViewReserva {
 
     public void setHorarioFinal(LocalDateTime horarioFinal) {
         this.horarioFinal = horarioFinal;
+    }
+
+    public M_Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(M_Status status) {
+        this.status = status;
     }
 
     public boolean isCancelavel() {

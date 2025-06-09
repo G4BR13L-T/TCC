@@ -6,6 +6,7 @@ import com.tcc.TCC.repository.R_Notebook;
 import com.tcc.TCC.repository.R_Reserva;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,35 @@ public class S_Reserva {
     private R_Reserva rReserva;
     @Autowired
     R_NotReserve rNotReserve;
+
+    /**
+     * After every minute verifies and, if necessary, changes the status of a reserve.
+     * Depois de cada minuto verifica e, se necessário, muda o status de uma reserva.
+     */
+    // 1 - Em espera
+    // 2 - Em andamento
+    // 8 - Em atraso
+    @Scheduled(cron = "0 * * * * ?")
+    public void atualizarStatus() {
+        List<M_Reserva> mReservas = rReserva.findAllInWaitOrCourse();
+        M_Status emAndamento = new M_Status(2L);
+        M_Status emAtraso = new M_Status(8L);
+        for (M_Reserva mReserva : mReservas) {
+            if (mReserva.getStatus().getId() == 1 || mReserva.getStatus().getId() == 2) {
+                if (!mReserva.getHorarioInicial().isAfter(LocalDateTime.now())
+                        && mReserva.getHorarioFinal().isAfter(LocalDateTime.now())) {
+                    mReserva.setStatus(emAndamento);
+                    System.out.println("Reserva " + mReserva.getId() + " em andamento!");
+                }
+                if (mReserva.getHorarioFinal().isBefore(LocalDateTime.now())) {
+                    mReserva.setStatus(emAtraso);
+                    System.out.println("Reserva " + mReserva.getId() + " em atraso!");
+                }
+            }
+        }
+        System.out.println("Reservas modificadas e salvas!");
+        rReserva.saveAll(mReservas);
+    }
 
     /**
      * @param quantidade
@@ -46,7 +76,11 @@ public class S_Reserva {
             dateS = LocalDateTime.parse(horarioI + ":00.000000");
             dateF = LocalDateTime.parse(dateS.toLocalDate().toString() + "T" + horarioF + ":00.000000");
             if (dateF.isBefore(dateS)) {
-                mensagem += "O Horario Final não pode ser antes do Inicial";
+                mensagem += "O Horario Final não pode ser antes do Inicial\n";
+                sucesso = false;
+            }
+            if (dateF.isBefore(LocalDateTime.now())) {
+                mensagem += "O horario final não pode ser antes do horário atual!\n";
                 sucesso = false;
             }
         } catch (Exception e) {

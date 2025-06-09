@@ -31,6 +31,7 @@ public class S_Home {
             mViewReserva.setQuantidade(res.getQuantidade());
             mViewReserva.setHorarioInicial(res.getHorarioInicial());
             mViewReserva.setHorarioFinal(res.getHorarioFinal());
+            mViewReserva.setStatus(res.getStatus());
             boolean cancelavel = false;
             if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
             mViewReserva.setCancelavel(cancelavel);

@@ -37,7 +37,7 @@
                 <hr class="mb-0">
             </div>
             <div class="lista">
-                <div class="box" th:each="reserva: ${reservas}">
+                <div class="box" th:each="reserva: ${reservas}" th:data-status="${reserva.status.id}">
                     <div class="row">
                         <div class="col-2">
                             <span style="visibility: hidden;">:)</span>
