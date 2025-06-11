@@ -36,7 +36,7 @@ public class C_Reserva {
                     .minusSeconds(LocalDateTime.now().getSecond()));
             model.addAttribute("today50", LocalTime.now().minusNanos(LocalTime.now().getNano())
                     .minusSeconds(LocalTime.now().getSecond()).plusMinutes(50));
-            model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificDate(LocalDateTime.now()));
+            model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificPeriod(LocalDateTime.now(), LocalTime.now().plusMinutes(50)));
             return "reserva/reserva";
         }
         return "redirect:/";
@@ -54,9 +54,10 @@ public class C_Reserva {
     }
 
     @PostMapping("notes-disponiveis")
-    public String postNotesDisponiveis(@RequestParam("data") LocalDateTime data,
-                                                 Model model) {
-        model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificDate(data));
+    public String postNotesDisponiveis(@RequestParam("datai") LocalDateTime datai,
+                                       @RequestParam("dataf") LocalTime dataf,
+                                       Model model) {
+        model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificPeriod(datai, dataf));
         return "reserva/partial-view/checkbox";
     }
 }

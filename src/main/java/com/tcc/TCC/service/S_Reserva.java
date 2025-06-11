@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,11 +72,13 @@ public class S_Reserva {
         String mensagem = "";
         LocalDateTime dateS = null;
         LocalDateTime dateF = null;
-        int qtdlivres = getAllFreeNotebooksInSpecificDate(dateS).size();
+
         List<M_Notebook> mNotebooks = new ArrayList<>();
         try {
             dateS = LocalDateTime.parse(horarioI + ":00.000000");
             dateF = LocalDateTime.parse(dateS.toLocalDate().toString() + "T" + horarioF + ":00.000000");
+            int qtdlivres = getAllFreeNotebooksInSpecificPeriod(dateS, dateF.toLocalTime()).size();
+
             if (dateF.isBefore(dateS)) {
                 mensagem += "O Horario Final não pode ser antes do Inicial\n";
                 sucesso = false;
@@ -83,6 +86,12 @@ public class S_Reserva {
             if (dateF.isBefore(LocalDateTime.now())) {
                 mensagem += "O horario final não pode ser antes do horário atual!\n";
                 sucesso = false;
+            }
+
+            if (quantidade > qtdlivres) {
+                sucesso = false;
+                mensagem += "A quantidade a ser reservada deve estar dentro do limite, " +
+                        "o qual atualmente é: " + qtdlivres + "\n";
             }
         } catch (Exception e) {
             sucesso = false;
@@ -98,18 +107,12 @@ public class S_Reserva {
             sucesso = false;
         }
 
-        if (quantidade > qtdlivres) {
-            sucesso = false;
-            mensagem += "A quantidade a ser reservada deve estar dentro do limite, " +
-                    "o qual atualmente é: " + qtdlivres + "\n";
-        }
-
         if (especifico == null) {
             mensagem += "A especificidade não pode ser nula!\n";
             sucesso = false;
         }
         if (dateS == null || dateF == null) {
-            mensagem += "Erro interno";
+            mensagem += "As reservas não podem estar vazias!\n";
             sucesso = false;
         }
         if (sucesso) {
@@ -120,7 +123,7 @@ public class S_Reserva {
                         for (String note : notes) mNotebooks.add(rNotebook.getNoteById(Long.parseLong(note)));
                     }
                 } else {
-                    List<M_Notebook> livres = getAllFreeNotebooksInSpecificDate(dateS);
+                    List<M_Notebook> livres = getAllFreeNotebooksInSpecificPeriod(dateS, dateF.toLocalTime());
                     for (int i = 0; i < quantidade; i++) {
                         mNotebooks.add(livres.get(i));
                         if (mNotebooks.size() == livres.size()) break;
@@ -153,10 +156,13 @@ public class S_Reserva {
     }
 
     /**
-     * @param data
-     * @return Lista de Notebooks em date-time específico
+     * @param data_de_inicio
+     * @param horario_de_fim
+     * @return notbooks livres entre as duas datas
      */
-    public List<M_Notebook> getAllFreeNotebooksInSpecificDate(LocalDateTime data) {
-        return rNotebook.findAllFreeInSpecificDate(data);
+    public List<M_Notebook> getAllFreeNotebooksInSpecificPeriod(LocalDateTime data_de_inicio,
+                                                                LocalTime horario_de_fim) {
+        LocalDateTime dataF = LocalDateTime.parse(data_de_inicio.toLocalDate().toString() + "T" + horario_de_fim);
+        return rNotebook.findAllFreeInSpecificPeriod(data_de_inicio, dataF);
     }
 }

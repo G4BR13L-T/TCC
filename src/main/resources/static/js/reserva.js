@@ -5,14 +5,17 @@ let max = $('#quantidade').data('max');
 setMinDataF();
 
 function pesquisaNotbooksDisponiveis(){
-    setMinDataF();
-    let data = $('#datai').val();
-    if(data != null){
+    let datai = $('#datai').val();
+    let dataf = $('#dataf').val();
+    if(datai != null && dataf != null){
         let i = 1;
         $.ajax({
             url: "/notes-disponiveis",
             method: "POST",
-            data: {data: data},
+            data: {
+                datai: datai,
+                dataf: dataf
+            },
             success: function(response){
                 $("#notes").html(response);
                 let disponiveis = $('input[name="notebook"]');
@@ -23,6 +26,7 @@ function pesquisaNotbooksDisponiveis(){
         });
     }else {
         $('#datai').val(now());
+        setMinDataF();
     }
 }
 

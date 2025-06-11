@@ -32,4 +32,22 @@ public interface R_Notebook extends JpaRepository<M_Notebook,Long> {
             "where nr.id_notebook is null " +
             "order by numero", nativeQuery = true)
     List<M_Notebook> findAllFreeInSpecificDate(@Param("date") LocalDateTime date);
+
+    @Query(value = "with notes_reservados as ( " +
+            "select distinct " +
+            "nr.id_notebook " +
+            "from tcc.notreserve nr " +
+            "inner join tcc.reserva r " +
+            "on r.id = nr.id_reserva " +
+            "where r.horario_inicial < :end " +
+            "and r.horario_final > :start " +
+            ") " +
+            "select distinct n.* " +
+            "from tcc.notebook n " +
+            "left outer join notes_reservados nr " +
+            "on n.id = nr.id_notebook " +
+            "where nr.id_notebook is null " +
+            "order by numero;", nativeQuery = true)
+    List<M_Notebook> findAllFreeInSpecificPeriod(@Param("start") LocalDateTime data_de_inicio,
+                                                 @Param("end") LocalDateTime data_de_fim);
 }
