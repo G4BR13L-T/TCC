@@ -17,6 +17,7 @@ public interface R_Reserva extends JpaRepository<M_Reserva, Long> {
             "from tcc.reserva " +
             "where (cast(horario_inicial as date) = current_date or id_status = 8) " +
             "and id_status != 3 " +
+            "and (id_status = 1 or id_status = 2 or id_status = 8) " +
             "order by horario_inicial", nativeQuery = true)
     List<M_Reserva> findAllOfToday();
 
@@ -24,6 +25,8 @@ public interface R_Reserva extends JpaRepository<M_Reserva, Long> {
             "from tcc.reserva " +
             "where horario_inicial > now() " +
             "and id_status != 3 " +
+            "and (id_status = 1 or id_status = 2 or id_status = 8) " +
+            "and cast(horario_inicial as date) != current_date " +
             "order by horario_inicial", nativeQuery = true)
     List<M_Reserva> findAllFuture();
 
