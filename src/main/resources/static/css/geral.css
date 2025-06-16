@@ -16,7 +16,7 @@
     box-shadow: 0.2em 0.2em 0.5em #ddd;
 }
 .lista{
-    max-height: 74vh;
+    max-height: 70vh;
     overflow-y: auto;
 }
 .cabecalho-lista{

@@ -37,18 +37,23 @@ public class S_Reserva {
         M_Status emAtraso = new M_Status(8L);
         for (M_Reserva mReserva : mReservas) {
             if (mReserva.getStatus().getId() == 1 || mReserva.getStatus().getId() == 2) {
+                boolean modificado = false;
                 if (!mReserva.getHorarioInicial().isAfter(LocalDateTime.now())
                         && mReserva.getHorarioFinal().isAfter(LocalDateTime.now())) {
                     mReserva.setStatus(emAndamento);
                     System.out.println("Reserva " + mReserva.getId() + " em andamento!");
+                    modificado = true;
                 }
                 if (mReserva.getHorarioFinal().isBefore(LocalDateTime.now())) {
                     mReserva.setStatus(emAtraso);
                     System.out.println("Reserva " + mReserva.getId() + " em atraso!");
+                    modificado = true;
                 }
 
-                System.out.println("Reservas modificadas e salvas!");
-                rReserva.saveAll(mReservas);
+                if(modificado) {
+                    System.out.println("Reservas modificadas e salvas!");
+                    rReserva.saveAll(mReservas);
+                }
             }
         }
     }
