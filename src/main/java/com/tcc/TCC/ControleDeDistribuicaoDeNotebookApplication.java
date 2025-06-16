@@ -25,3 +25,6 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 		SpringApplication.run(ControleDeDistribuicaoDeNotebookApplication.class, args);
 	}
 }
+
+//Todo: quantidade e especificidade se complentam
+//Todo: itens extras recebem confirmação de existencia, precisa se r pedido com pelo menos 3d de antecedencia
