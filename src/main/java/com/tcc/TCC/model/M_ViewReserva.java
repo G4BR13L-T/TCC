@@ -13,6 +13,8 @@ public class M_ViewReserva {
     private M_Status status;
     private boolean cancelavel;
 
+    private boolean atestavel;
+
     public Long getId() {
         return id;
     }
@@ -75,5 +77,13 @@ public class M_ViewReserva {
 
     public void setCancelavel(boolean cancelavel) {
         this.cancelavel = cancelavel;
+    }
+
+    public boolean isAtestavel() {
+        return atestavel;
+    }
+
+    public void setAtestavel(boolean atestavel) {
+        this.atestavel = atestavel;
     }
 }

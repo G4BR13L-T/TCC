@@ -33,8 +33,11 @@ public class S_Home {
             mViewReserva.setHorarioFinal(res.getHorarioFinal());
             mViewReserva.setStatus(res.getStatus());
             boolean cancelavel = false;
+            boolean atestavel = false;
             if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
+            if(res.getHorarioInicial().isBefore(LocalDateTime.now())) atestavel = true;
             mViewReserva.setCancelavel(cancelavel);
+            mViewReserva.setAtestavel(atestavel);
             finale.add(mViewReserva);
         }
         return finale;
@@ -55,8 +58,11 @@ public class S_Home {
             mViewReserva.setHorarioInicial(res.getHorarioInicial());
             mViewReserva.setHorarioFinal(res.getHorarioFinal());
             boolean cancelavel = false;
+            boolean atestavel = false;
             if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
+            if(res.getHorarioInicial().isBefore(LocalDateTime.now())) atestavel = true;
             mViewReserva.setCancelavel(cancelavel);
+            mViewReserva.setAtestavel(atestavel);
             finale.add(mViewReserva);
         }
         return finale;
@@ -80,5 +86,24 @@ public class S_Home {
             mensagem+= "Erro interno durante o cancelamento da reserva!\n";
         }
         return new M_Resposta(sucesso,mensagem);
+    }
+    public Object getSpecificReserve(Long id){
+        M_Reserva res = rReserva.findElementById(id);
+        M_ViewReserva mViewReserva = new M_ViewReserva();
+        mViewReserva.setId(res.getId());
+        mViewReserva.setUsuario(res.getUsuario());
+        mViewReserva.setReservaNotes(res.getReservaNotes());
+        mViewReserva.setQuantidade(res.getQuantidade());
+        mViewReserva.setHorarioInicial(res.getHorarioInicial());
+        mViewReserva.setHorarioFinal(res.getHorarioFinal());
+        mViewReserva.setStatus(res.getStatus());
+        boolean cancelavel = false;
+        boolean atestavel = false;
+        if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
+        if(res.getHorarioInicial().isBefore(LocalDateTime.now())) atestavel = true;
+        mViewReserva.setCancelavel(cancelavel);
+        mViewReserva.setAtestavel(atestavel);
+
+        return mViewReserva;
     }
 }

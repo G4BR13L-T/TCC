@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--BOOTSTRAP-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!--JQUERY-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!--SWEET ALERT-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!--FONTAWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+          integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <!--CUSTOMS-->
+    <link href="css/geral.css" rel="stylesheet">
+    <script src="js/navbar.js" defer></script>
+    <title>Atestar Recebimento</title>
+</head>
+<body>
+<div th:insert="~{navbar/navbar}"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-4" style="visibility: hidden;">
+            ;)
+        </div>
+        <div class="col-4 text-center">
+            <span class="h6">Id: </span>
+            <span th:text="${reserva.id}"></span>
+        </div>
+        <div class="col-4 text-end">
+            <button type="button" class="btn btn-close" aria-label="delete"
+                    th:if="${usuario.id == reserva.usuario.id and usuario.poder.id == reserva.usuario.poder.id and reserva.cancelavel}"
+                    th:data-idres="${reserva.id}" onclick="cancelarReserva(this)" style="visibility: hidden;"></button>
+        </div>
+    </div>
+    <hr class="p-0 m-0 mt-1"/>
+    <div class="row">
+        <div class="col-6">
+            <span class="h6">Quantidade: </span>
+            <span th:text="${reserva.quantidade}"></span>
+            </br>
+            <span class="h6">Usuário: </span>
+            <span th:text="${reserva.usuario.nome}"></span>
+            </br>
+            <span class="h6">Horário Inicial: </span>
+            <span th:text="${#temporals.format(reserva.horarioInicial, 'dd/MM/yyyy HH:mm')}"></span>
+            </br>
+            <span class="h6">Horário Final: </span>
+            <span th:text="${#temporals.format(reserva.horarioFinal, 'dd/MM/yyyy HH:mm')}"></span>
+        </div>
+        <div class="col-6">
+            <span class="h6">Notebooks: </span>
+            <span th:each="reservaNote: ${reserva.reservaNotes}" th:text="${reservaNote.notebook.numero + '; '}"></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

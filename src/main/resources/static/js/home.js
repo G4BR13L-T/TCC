@@ -76,3 +76,11 @@ function adicionarStatus(){
         }
     });
 }
+function atestarRecebimento(botao){
+    let reservaId = $(botao).data('idres');
+    $.ajax({
+        url: "/atestar-recebimento",
+        method: "POST",
+        data: {reservaId: reservaId},
+    })
+}

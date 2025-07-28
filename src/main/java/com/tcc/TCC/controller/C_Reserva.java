@@ -36,7 +36,8 @@ public class C_Reserva {
                     .minusSeconds(LocalDateTime.now().getSecond()));
             model.addAttribute("today50", LocalTime.now().minusNanos(LocalTime.now().getNano())
                     .minusSeconds(LocalTime.now().getSecond()).plusMinutes(50));
-            model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificPeriod(LocalDateTime.now(), LocalTime.now().plusMinutes(50)));
+            model.addAttribute("free", sReserva.getAllFreeNotebooksInSpecificPeriod(LocalDateTime.now(),
+                    LocalTime.now().plusMinutes(50)));
             return "reserva/reserva";
         }
         return "redirect:/";
