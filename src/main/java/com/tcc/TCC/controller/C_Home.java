@@ -26,15 +26,14 @@ public class C_Home {
     }
 
     @PostMapping("/atestar-recebimento")
-    public String postAtestarRecebimento(@RequestParam("reservaId") Long id,
+    @ResponseBody
+    public boolean postAtestarRecebimento(@RequestParam("reservaId") Long id,
                                          HttpSession session,
                                          Model model){
         M_Usuario mUsuario = (M_Usuario) session.getAttribute("usuario");
         if (mUsuario != null && (mUsuario.getPoder().getId() == 1 || mUsuario.getPoder().getId() == 2)) {
-            model.addAttribute("usuario", mUsuario);
-            model.addAttribute("reserva", sHome.getSpecificReserve(id));
-            return "atestar/atestar";
+            return true;
         }
-        return "redirect:/";
+        return false;
     }
 }

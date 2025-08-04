@@ -2,6 +2,7 @@ $('#resnote').addClass("disabled");
 
 let especificidade = 1;
 let max = $('#quantidade').data('max');
+if (max >= 30) max = 30;
 setMinDataF();
 
 function pesquisaNotbooksDisponiveis(){
@@ -22,6 +23,7 @@ function pesquisaNotbooksDisponiveis(){
                 let qtd = disponiveis.length;
                 $('#qtd').text(qtd);
                 max = qtd;
+                if (max >= 30) max = 30;
             }
         });
     }else {
@@ -99,10 +101,10 @@ function reservar(){
     }else{
         let notee = notebooks;
         notebooks = "";
-        quantidade = notee.length;
-        for(let i = 0; i < quantidade; i++){
+        if (quantidade <= notee.length) quantidade = notee.length;
+        for(let i = 0; i < notee.length; i++){
             notebooks += $(notee[i]).data('id')
-            if(i != quantidade - 1){
+            if(i != notee.length - 1){
                 notebooks += ";"
             }
         }

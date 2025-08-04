@@ -50,7 +50,7 @@ public class S_Reserva {
                     modificado = true;
                 }
 
-                if(modificado) {
+                if (modificado) {
                     System.out.println("Reservas modificadas e salvas!");
                     rReserva.saveAll(mReservas);
                 }
@@ -127,11 +127,20 @@ public class S_Reserva {
                     if (!notes[0].isEmpty()) {
                         for (String note : notes) mNotebooks.add(rNotebook.getNoteById(Long.parseLong(note)));
                     }
+                    if (notes.length < quantidade) {
+                        List<M_Notebook> livres = getAllFreeNotebooksInSpecificPeriod(dateS, dateF.toLocalTime());
+                        for (int i = 0; i < quantidade; i++) {
+                            if (!mNotebooks.contains(livres.get(i))) mNotebooks.add(livres.get(i));
+                            if (mNotebooks.size() == livres.size()) break;
+                            if (mNotebooks.size() >= quantidade) break;
+                        }
+                    }
                 } else {
                     List<M_Notebook> livres = getAllFreeNotebooksInSpecificPeriod(dateS, dateF.toLocalTime());
                     for (int i = 0; i < quantidade; i++) {
                         mNotebooks.add(livres.get(i));
                         if (mNotebooks.size() == livres.size()) break;
+                        if (mNotebooks.size() >= quantidade) break;
                     }
                 }
                 M_Status status = new M_Status();

@@ -82,5 +82,12 @@ function atestarRecebimento(botao){
         url: "/atestar-recebimento",
         method: "POST",
         data: {reservaId: reservaId},
+        success: function(response){
+            if(response){
+                window.location.href = "/atestamento-reserva";
+            }else{
+                window.location.href = "/";
+            }
+        }
     })
 }

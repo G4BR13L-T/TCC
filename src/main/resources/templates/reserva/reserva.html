@@ -47,7 +47,9 @@
         </div>
     </div>
     <span class="h3">O total de notebooks não reservados é de: </span>
-    <span id="qtd" class="h3" th:text="${free.size}"></span><br>
+    <span id="qtd" class="h3" th:text="${free.size}"></span>
+    <span> max 30</span>
+    <br>
     <span>Quantidade que deseja reservar: </span>
     <input type="number" id="quantidade"
            class="form-control" min="1" th:max="${free.size}" th:data-max="${free.size}"
