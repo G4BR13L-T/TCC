@@ -23,18 +23,20 @@
     <!--CUSTOMS-->
     <link href="css/geral.css" rel="stylesheet">
     <script src="js/navbar.js" defer></script>
+    <script src="js/atestar.js" defer></script>
     <title>Atestar Recebimento</title>
 </head>
 <body>
 <div th:insert="~{navbar/navbar}"></div>
-<div class="container">
+<div class="container box" style="padding-right: calc(var(--bs-gutter-x) * .5); padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-right: auto; margin-left: auto;">
     <div class="row">
         <div class="col-4" style="visibility: hidden;">
             ;)
         </div>
         <div class="col-4 text-center">
             <span class="h6">Id: </span>
-            <span th:text="${reserva.id}"></span>
+            <span id="id" th:text="${reserva.id}" th:data-max="${reserva.quantidade}"></span>
         </div>
         <div class="col-4 text-end">
             <button type="button" class="btn btn-close" aria-label="delete"
@@ -62,6 +64,26 @@
             <span th:each="reservaNote: ${reserva.reservaNotes}" th:text="${reservaNote.notebook.numero + '; '}"></span>
         </div>
     </div>
+</div>
+<div class="container">
+    <select id="statusRetorno" class="form-select mt-3">
+        <option disabled selected>Selecione o status de retorno...</option>
+        <!-- Opções para status == 2 -->
+        <option th:if="${reserva.status.id == 2}" value="4">Devolvida completa sem danos</option>
+        <option th:if="${reserva.status.id == 2}" value="5">Devolvida parcial sem danos</option>
+        <option th:if="${reserva.status.id == 2}" value="6">Devolvida completa com danos</option>
+        <option th:if="${reserva.status.id == 2}" value="7">Devolvida parcial com danos</option>
+        <!-- Opções para status == 8 -->
+        <option th:if="${reserva.status.id == 8}" value="9">Devolvida completa sem danos atrasada</option>
+        <option th:if="${reserva.status.id == 8}" value="10">Devolvida parcial sem danos atrasada</option>
+        <option th:if="${reserva.status.id == 8}" value="11">Devolvida completa com danos atrasada</option>
+        <option th:if="${reserva.status.id == 8}" value="12">Devolvida parcial com danos atrasada</option>
+    </select>
+    <input id="qtdDefeitos" type="number" class="form-control d-none mt-3" min="1" th:max="${reserva.quantidade}"
+            placeholder="Quantidade de Notebooks Danificados" value="1" title="Quantidade de Notebooks Danificados">
+    <input id="qtdDevolvidos" type="number" class="form-control d-none mt-3" min="1" th:max="${reserva.quantidade}"
+            placeholder="Quantidade de Notebooks Devolvidos" value="1" title="Quantidade de Notebooks Devolvidos">
+    <button id="btAtestar" type="button" class="btn btn-primary mt-3 disabled">Atestar Recebimento</button>
 </div>
 </body>
 </html>

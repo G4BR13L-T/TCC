@@ -152,6 +152,8 @@ public class S_Reserva {
                 reserva.setHorarioInicial(dateS);
                 reserva.setHorarioFinal(dateF);
                 reserva.setStatus(status);
+                reserva.setDevolvidos(0);
+                reserva.setDefeitos(0);
                 rReserva.save(reserva);
                 for (M_Notebook note : mNotebooks) {
                     M_NotReserve mNotReserve = new M_NotReserve();

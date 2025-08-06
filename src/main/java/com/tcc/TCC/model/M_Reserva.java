@@ -21,6 +21,8 @@ public class M_Reserva {
     @ManyToOne
     @JoinColumn(name = "id_status", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_status"), nullable = false)
     private M_Status status;
+    private Integer devolvidos;
+    private Integer defeitos;
 
     @OneToMany(mappedBy = "reserva")
     private List<M_NotReserve> reservaNotes;
@@ -86,5 +88,21 @@ public class M_Reserva {
 
     public void setStatus(M_Status status) {
         this.status = status;
+    }
+
+    public Integer getDevolvidos() {
+        return devolvidos;
+    }
+
+    public void setDevolvidos(Integer devolvidos) {
+        this.devolvidos = devolvidos;
+    }
+
+    public Integer getDefeitos() {
+        return defeitos;
+    }
+
+    public void setDefeitos(Integer defeitos) {
+        this.defeitos = defeitos;
     }
 }
