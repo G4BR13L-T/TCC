@@ -23,6 +23,7 @@ public class M_Reserva {
     private M_Status status;
     private Integer devolvidos;
     private Integer defeitos;
+    private String observacoes;
 
     @OneToMany(mappedBy = "reserva")
     private List<M_NotReserve> reservaNotes;
@@ -104,5 +105,13 @@ public class M_Reserva {
 
     public void setDefeitos(Integer defeitos) {
         this.defeitos = defeitos;
+    }
+
+    public String getObservacoes() {
+        return observacoes;
+    }
+
+    public void setObservacoes(String observacoes) {
+        this.observacoes = observacoes;
     }
 }

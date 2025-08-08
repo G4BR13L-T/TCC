@@ -26,7 +26,7 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 	}
 }
 
-//Todo: quantidade e especificidade se complentam
+//quantidade e especificidade se complentam
 //Todo: itens extras recebem confirmação de existencia, precisa ser pedido com pelo menos 3d de antecedencia
 //Todo: Dias max e mínimo e horários (tempo máximo por professor para reservervar 72h)
 //Todo: Filtro por professor, por data

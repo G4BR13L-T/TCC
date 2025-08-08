@@ -51,7 +51,7 @@ $('#btAtestar').on('click', function () {
             qtdDevolvidos: qtdDevolvidos,
             qtdDefeitos: qtdDefeitos
         },
-        success: function (reponse) {
+        success: function (response) {
             const Toast = Swal.mixin({
                 toast: true,
                 position: "top-end",

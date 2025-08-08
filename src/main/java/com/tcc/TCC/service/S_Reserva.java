@@ -39,12 +39,12 @@ public class S_Reserva {
             if (mReserva.getStatus().getId() == 1 || mReserva.getStatus().getId() == 2) {
                 boolean modificado = false;
                 if (!mReserva.getHorarioInicial().isAfter(LocalDateTime.now())
-                        && mReserva.getHorarioFinal().isAfter(LocalDateTime.now())) {
+                        && mReserva.getHorarioFinal().plusMinutes(5l).isAfter(LocalDateTime.now())) {
                     mReserva.setStatus(emAndamento);
                     System.out.println("Reserva " + mReserva.getId() + " em andamento!");
                     modificado = true;
                 }
-                if (mReserva.getHorarioFinal().isBefore(LocalDateTime.now())) {
+                if (mReserva.getHorarioFinal().plusMinutes(5l).isBefore(LocalDateTime.now())) {
                     mReserva.setStatus(emAtraso);
                     System.out.println("Reserva " + mReserva.getId() + " em atraso!");
                     modificado = true;
@@ -72,6 +72,7 @@ public class S_Reserva {
                                String notebooks,
                                String horarioI,
                                String horarioF,
+                               String observacao,
                                HttpSession session) {
         boolean sucesso = true;
         String mensagem = "";
@@ -154,6 +155,7 @@ public class S_Reserva {
                 reserva.setStatus(status);
                 reserva.setDevolvidos(0);
                 reserva.setDefeitos(0);
+                reserva.setObservacoes(observacao);
                 rReserva.save(reserva);
                 for (M_Notebook note : mNotebooks) {
                     M_NotReserve mNotReserve = new M_NotReserve();

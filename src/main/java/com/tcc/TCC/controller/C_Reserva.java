@@ -50,8 +50,9 @@ public class C_Reserva {
                                   @RequestParam("notebooks") String notebooks,
                                   @RequestParam("horarioI") String horarioI,
                                   @RequestParam("horarioF") String horarioF,
+                                  @RequestParam("obs") String observacao,
                                   HttpSession session) {
-        return sReserva.reservar(quantidade, especifico, notebooks, horarioI, horarioF, session);
+        return sReserva.reservar(quantidade, especifico, notebooks, horarioI, horarioF, observacao, session);
     }
 
     @PostMapping("notes-disponiveis")

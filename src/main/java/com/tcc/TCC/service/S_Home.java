@@ -32,6 +32,7 @@ public class S_Home {
             mViewReserva.setHorarioInicial(res.getHorarioInicial());
             mViewReserva.setHorarioFinal(res.getHorarioFinal());
             mViewReserva.setStatus(res.getStatus());
+            mViewReserva.setObservacao(res.getObservacoes());
             boolean cancelavel = false;
             boolean atestavel = false;
             if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;
@@ -57,6 +58,7 @@ public class S_Home {
             mViewReserva.setQuantidade(res.getQuantidade());
             mViewReserva.setHorarioInicial(res.getHorarioInicial());
             mViewReserva.setHorarioFinal(res.getHorarioFinal());
+            mViewReserva.setObservacao(res.getObservacoes());
             boolean cancelavel = false;
             boolean atestavel = false;
             if(res.getHorarioInicial().isAfter(LocalDateTime.now().plusMinutes(30L))) cancelavel = true;

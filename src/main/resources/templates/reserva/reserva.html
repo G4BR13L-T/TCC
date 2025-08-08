@@ -59,6 +59,11 @@
            name="especifico" onclick="especifico()">
     <label for="especifico">Desejo escolher notebooks específicos.</label><br>
     <div class="row d-none" id="notes" th:insert="reserva/partial-view/checkbox"></div>
+    <div class="mt-3">
+        <span>Observações/Motivos/Atividade: </span>
+        <input type="text" id="obs" maxlength="255"
+               class="form-control" placeholder="Observação">
+    </div>
     <button type="button" class="btn btn-primary mt-3" id="btReserva" onclick="reservar()">Reservar</button>
 </div>
 </body>

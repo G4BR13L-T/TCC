@@ -11,6 +11,7 @@ public class M_ViewReserva {
     private LocalDateTime horarioInicial;
     private LocalDateTime horarioFinal;
     private M_Status status;
+    private String observacao;
     private boolean cancelavel;
 
     private boolean atestavel;
@@ -85,5 +86,13 @@ public class M_ViewReserva {
 
     public void setAtestavel(boolean atestavel) {
         this.atestavel = atestavel;
+    }
+
+    public String getObservacao() {
+        return observacao;
+    }
+
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
     }
 }

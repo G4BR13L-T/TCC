@@ -95,6 +95,8 @@ function reservar(){
     let notebooks = $('input[name="notebook"]:checked');
     let horarioI = $('#datai').val();
     let horarioF = $('#dataf').val();
+    let obs = $('#obs').val();
+
     if(notebooks.length == 0){
         notebooks = "";
         especifico = false;
@@ -118,7 +120,8 @@ function reservar(){
             especifico: especifico,
             notebooks: notebooks,
             horarioI: horarioI,
-            horarioF: horarioF
+            horarioF: horarioF,
+            obs: obs
         },
         success: function(response){
             const Toast = Swal.mixin({
