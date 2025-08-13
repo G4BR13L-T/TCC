@@ -27,9 +27,14 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 }
 
 //quantidade e especificidade se complentam
-//Todo: itens extras recebem confirmação de existencia, precisa ser pedido com pelo menos 3d de antecedencia
+//To[do]: itens extras recebem confirmação de existencia, precisa ser pedido com pelo menos 3d de antecedencia
 //Todo: Dias max e mínimo e horários (tempo máximo por professor para reservervar 72h)
 //Todo: Filtro por professor, por data
 //Limitar número de reservas por professores = 30 max
-//Todo: Campo observação na reserva para saber a atividade do professor e assim se necessário remanejar
-//Todo: Poder deixar notebook inativo, por baixa ou avaria no mesmo
+//Campo observação na reserva para saber a atividade do professor e assim se necessário remanejar
+//Poder deixar notebook inativo, por baixa ou avaria no mesmo
+//Limitar cadastro para não dar para criar dois cadastros iguais
+//Código de patrimônio tá repetindo
+//To[do]: Seleção múltipla
+//Todo: Inativar notebook
+//Limitar a reserva específica para o limite de 30 notebooks

@@ -10,10 +10,12 @@ public class M_Notebook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    private String codigoPatrimonio;
     @Column(nullable = false, unique = true)
+    private String codigoPatrimonio;
+    @Column(nullable = false)
     private Integer numero;
+    @Column(nullable = false)
+    private Boolean ativo;
 
     public Long getId() {
         return id;
@@ -37,5 +39,13 @@ public class M_Notebook {
 
     public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 }

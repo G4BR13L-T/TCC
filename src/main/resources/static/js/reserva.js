@@ -149,3 +149,18 @@ function reservar(){
         }
     });
 }
+function limitaTrinta(){
+    let selecionados = $('input[name="notebook"]:checked');
+    let length = selecionados.length;
+    if (length >= 30){
+        $('input[name="notebook"]:not(:checked)').each( function (index) {
+            console.log('Checkbox', index, 'valor:', $(this).val());
+            $(this).prop('disabled', true);
+        });
+    }else{
+        $('input[name="notebook"]:not(:checked)').each( function (index) {
+            console.log('Checkbox', index, 'valor:', $(this).val());
+            $(this).prop('disabled', false);
+        });
+    }
+}

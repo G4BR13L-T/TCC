@@ -10,11 +10,11 @@ public class M_Usuario {
     private Long id;
     @Column(nullable = false)
     private String nome;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String matricula;
     @Column(nullable = false)
     private String senha;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     @ManyToOne
     @JoinColumn(name = "id_poder", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fkpoder"), nullable = false)

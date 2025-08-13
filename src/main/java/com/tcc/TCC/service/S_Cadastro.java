@@ -67,6 +67,12 @@ public class S_Cadastro {
             sucesso = false;
             mensagem += "Favor selecione um valor válido!\n";
         }
+        for (M_Usuario user: rUsuario.findAll()){
+            if (user.getMatricula().equals(matricula) || user.getEmail().equals(email)){
+                sucesso = false;
+                mensagem += "Esse usuário já existe!";
+            }
+        }
         if(sucesso){
             try{
                 M_Usuario mUsuario = new M_Usuario();
@@ -98,7 +104,7 @@ public class S_Cadastro {
         boolean sucesso = true;
         String mensagem = "";
         for (M_Notebook note: rNotebook.findAll()) {
-            if(note.getNumero().equals(numero)){
+            if(note.getCodigoPatrimonio().equals(codigo)){
                 sucesso = false;
                 mensagem += "Esse notebook já foi cadastrado, tente outro!\n";
             }
@@ -112,6 +118,7 @@ public class S_Cadastro {
                 M_Notebook notebook = new M_Notebook();
                 notebook.setNumero(numero);
                 notebook.setCodigoPatrimonio(codigo);
+                notebook.setAtivo(true);
                 rNotebook.save(notebook);
                 mensagem += "O notebook foi cadastrado com sucesso!\n";
             }catch (Exception e){

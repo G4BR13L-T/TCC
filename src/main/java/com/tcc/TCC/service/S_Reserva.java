@@ -145,7 +145,11 @@ public class S_Reserva {
                     }
                 }
                 M_Status status = new M_Status();
-                status.setId(1L);
+                if(dateS.isBefore(LocalDateTime.now())) {
+                    status.setId(1L);
+                }else {
+                    status.setId(2L);
+                }
                 M_Reserva reserva = new M_Reserva();
                 reserva.setEspecifico(especifico);
                 reserva.setUsuario((M_Usuario) session.getAttribute("usuario"));

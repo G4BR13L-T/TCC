@@ -1,9 +1,9 @@
 <div class="col-12">
     <h5>Selecione os notebooks que deseja: </h5>
 </div>
-<div class="col-1" th:each="notebook: ${free}">
+<div class="col-1" th:each="notebook: ${free}" >
     <input type="checkbox" th:id="${notebook.numero}"
            th:data-id="${notebook.id}"
-           name="notebook">
-    <label th:for="${notebook.numero}" th:text="${notebook.numero}"></label>
+           name="notebook" onclick="limitaTrinta()">
+    <label th:for="${notebook.numero}" th:text="${notebook.numero}" onclick="limitaTrinta()"></label>
 </div>
