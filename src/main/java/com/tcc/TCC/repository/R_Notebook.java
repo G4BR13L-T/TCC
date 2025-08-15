@@ -17,6 +17,7 @@ public interface R_Notebook extends JpaRepository<M_Notebook,Long> {
             "from tcc.notebook " +
             "where id = :id", nativeQuery = true)
     M_Notebook getNoteById(@Param("id")Long id);
+
     @Query(value = "with notes_reservados as( " +
             "select distinct " +
             "nr.id_notebook " +
@@ -52,4 +53,10 @@ public interface R_Notebook extends JpaRepository<M_Notebook,Long> {
             "order by numero;", nativeQuery = true)
     List<M_Notebook> findAllFreeInSpecificPeriod(@Param("start") LocalDateTime data_de_inicio,
                                                  @Param("end") LocalDateTime data_de_fim);
+
+    @Query(value = "select * " +
+            "from tcc.notebook " +
+            "where ativo " +
+            "order by numero", nativeQuery = true)
+    List<M_Notebook> findAllActive();
 }

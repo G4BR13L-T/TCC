@@ -33,17 +33,26 @@ public class S_Reserva {
     @Scheduled(cron = "0 * * * * ?")
     public void atualizarStatus() {
         List<M_Reserva> mReservas = rReserva.findAllInWaitOrCourse();
+        M_Status emEspera = new M_Status(1l);
         M_Status emAndamento = new M_Status(2L);
         M_Status emAtraso = new M_Status(8L);
         for (M_Reserva mReserva : mReservas) {
+
             if (mReserva.getStatus().getId() == 1 || mReserva.getStatus().getId() == 2) {
                 boolean modificado = false;
+                if (mReserva.getHorarioInicial().isAfter(LocalDateTime.now())) {
+                    mReserva.setStatus(emEspera);
+                    System.out.println("Reserva " + mReserva.getId() + " em espera!");
+                    modificado = true;
+                }
+
                 if (!mReserva.getHorarioInicial().isAfter(LocalDateTime.now())
                         && mReserva.getHorarioFinal().plusMinutes(5l).isAfter(LocalDateTime.now())) {
                     mReserva.setStatus(emAndamento);
                     System.out.println("Reserva " + mReserva.getId() + " em andamento!");
                     modificado = true;
                 }
+
                 if (mReserva.getHorarioFinal().plusMinutes(5l).isBefore(LocalDateTime.now())) {
                     mReserva.setStatus(emAtraso);
                     System.out.println("Reserva " + mReserva.getId() + " em atraso!");
@@ -145,7 +154,7 @@ public class S_Reserva {
                     }
                 }
                 M_Status status = new M_Status();
-                if(dateS.isBefore(LocalDateTime.now())) {
+                if(dateS.isAfter(LocalDateTime.now())) {
                     status.setId(1L);
                 }else {
                     status.setId(2L);

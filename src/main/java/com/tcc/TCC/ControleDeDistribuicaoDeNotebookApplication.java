@@ -36,5 +36,5 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 //Limitar cadastro para não dar para criar dois cadastros iguais
 //Código de patrimônio tá repetindo
 //To[do]: Seleção múltipla
-//Todo: Inativar notebook
+//Inativar notebook
 //Limitar a reserva específica para o limite de 30 notebooks

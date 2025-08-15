@@ -81,6 +81,9 @@ public class S_Home {
                 mReserva.setHorarioFinal(LocalDateTime.now());
                 rReserva.save(mReserva);
                 mensagem += "Cancelamento realizado com sucesso!\n";
+            }else {
+                sucesso = false;
+                mensagem += "Não é possível cancelar esta reserva!\n";
             }
         }catch (Exception e){
             System.err.println(e);
