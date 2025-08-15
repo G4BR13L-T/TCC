@@ -22,6 +22,8 @@ public class S_Reserva {
     private R_Reserva rReserva;
     @Autowired
     R_NotReserve rNotReserve;
+    @Autowired
+    private S_EMailSender eMailSender;
 
     /**
      * After every minute verifies and, if necessary, changes the status of a reserve.
@@ -177,6 +179,11 @@ public class S_Reserva {
                     rNotReserve.save(mNotReserve);
                 }
                 mensagem += "Reserva realizada com sucesso!\n";
+                String eMailSubject = "Reserva Realizada";
+                String eMail = "Olá " + reserva.getUsuario().getNome() +
+                        "\nVocê realizou uma reserva de " + reserva.getQuantidade() + " notebooks no site NotReserve, " +
+                        "quando chegar o horario de retirada, será enviado um novo e-mmail.";
+                eMailSender.enviarEmailSimples(reserva.getUsuario().getEmail(),eMailSubject,eMail);
             } catch (Exception e) {
                 System.err.println("" + e);
                 mensagem += "Erro interno durante o precesso de reserva!\n";

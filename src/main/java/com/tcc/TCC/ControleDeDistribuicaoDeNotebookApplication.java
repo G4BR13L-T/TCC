@@ -38,3 +38,4 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 //To[do]: Seleção múltipla
 //Inativar notebook
 //Limitar a reserva específica para o limite de 30 notebooks
+//Todo: Enviar eMails para cada ação realizada pelo sistema (reserva, cadastro, atestamento, em andamento, atrasada...)
