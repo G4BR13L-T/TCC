@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 public class S_Atestar {
     @Autowired
     private R_Reserva rReserva;
+    @Autowired
+    private S_EMailSender eMailSender;
 
     public M_Resposta atestReserve(Long idReserva,
                                    Long idStatus,
@@ -31,6 +33,14 @@ public class S_Atestar {
                 mReserva.setDevolvidos(devolvidos);
                 rReserva.save(mReserva);
                 mensagem += "Atestamento realizado com sucesso";
+                String eMailSubject = "Reserva Atestada";
+                String eMail = "Olá, " + mReserva.getUsuario().getNome() + ",\n\n" +
+                        "Tudo certo! O atestamento da sua reserva [" + idReserva + "] foi concluído com sucesso. \n\n" +
+                        "Aqui estão os detalhes:\n" +
+                        "- Quantidade devolvida: " + devolvidos + "\n" +
+                        "- Itens com defeito: " + defeitos + "\n\n" +
+                        "Obrigado por utilizar nosso sistema!";
+                eMailSender.enviarEmailSimples(mReserva.getUsuario().getEmail(),eMailSubject,eMail);
             }
         }catch (Exception e){
             System.err.println(e);

@@ -42,28 +42,55 @@ public class S_Reserva {
 
             if (mReserva.getStatus().getId() == 1 || mReserva.getStatus().getId() == 2) {
                 boolean modificado = false;
-                if (mReserva.getHorarioInicial().isAfter(LocalDateTime.now())) {
+                String eMailSubject = "";
+                String eMail = "";
+
+                if (mReserva.getHorarioInicial().isAfter(LocalDateTime.now()) && mReserva.getStatus().getId() != 1) {
                     mReserva.setStatus(emEspera);
                     System.out.println("Reserva " + mReserva.getId() + " em espera!");
                     modificado = true;
+
+                    eMailSubject = "Sua reserva está em espera";
+                    eMail = "Olá " + mReserva.getUsuario().getNome() + ",\n\n" +
+                            "Sua reserva [" + mReserva.getId() + "] está aguardando início.\n\n" +
+                            "Detalhes:\n" +
+                            "- Quantidade: " + mReserva.getQuantidade() + "\n" +
+                            "- Horário inicial: " + mReserva.getHorarioInicial() + "\n" +
+                            "- Horário final: " + mReserva.getHorarioFinal() + "\n\n" +
+                            "Fique atento ao horário de retirada!";
                 }
 
                 if (!mReserva.getHorarioInicial().isAfter(LocalDateTime.now())
-                        && mReserva.getHorarioFinal().plusMinutes(5l).isAfter(LocalDateTime.now())) {
+                        && mReserva.getHorarioFinal().plusMinutes(5l).isAfter(LocalDateTime.now()) && mReserva.getStatus().getId() != 2) {
                     mReserva.setStatus(emAndamento);
                     System.out.println("Reserva " + mReserva.getId() + " em andamento!");
                     modificado = true;
+
+                    eMailSubject = "Sua reserva está em andamento";
+                    eMail = "Olá " + mReserva.getUsuario().getNome() + ",\n\n" +
+                            "Sua reserva [" + mReserva.getId() + "] já está em andamento.\n\n" +
+                            "Horário inicial: " + mReserva.getHorarioInicial() + "\n" +
+                            "Horário final: " + mReserva.getHorarioFinal() + "\n\n" +
+                            "Retire e utilize seu notebook dentro do período.";
                 }
 
-                if (mReserva.getHorarioFinal().plusMinutes(5l).isBefore(LocalDateTime.now())) {
+                if (mReserva.getHorarioFinal().plusMinutes(5l).isBefore(LocalDateTime.now()) && mReserva.getStatus().getId() != 8) {
                     mReserva.setStatus(emAtraso);
                     System.out.println("Reserva " + mReserva.getId() + " em atraso!");
                     modificado = true;
+
+                    eMailSubject = "Sua reserva está em atraso";
+                    eMail = "Olá " + mReserva.getUsuario().getNome() + ",\n\n" +
+                            "Sua reserva [" + mReserva.getId() + "] entrou em atraso.\n\n" +
+                            "Horário inicial: " + mReserva.getHorarioInicial() + "\n" +
+                            "Horário final: " + mReserva.getHorarioFinal() + "\n\n" +
+                            "Por favor, regularize sua situação o quanto antes e entregue os notebooks na bilioteca.";
                 }
 
                 if (modificado) {
-                    System.out.println("Reservas modificadas e salvas!");
                     rReserva.saveAll(mReservas);
+                    eMailSender.enviarEmailSimples(mReserva.getUsuario().getEmail(), eMailSubject, eMail);
+                    System.out.println("Reserva " + mReserva.getId() + " atualizada e notificação enviada!");
                 }
             }
         }
@@ -180,10 +207,19 @@ public class S_Reserva {
                 }
                 mensagem += "Reserva realizada com sucesso!\n";
                 String eMailSubject = "Reserva Realizada";
-                String eMail = "Olá " + reserva.getUsuario().getNome() +
-                        "\nVocê realizou uma reserva de " + reserva.getQuantidade() + " notebooks no site NotReserve, " +
-                        "quando chegar o horario de retirada, será enviado um novo e-mmail.";
-                eMailSender.enviarEmailSimples(reserva.getUsuario().getEmail(),eMailSubject,eMail);
+                String eMail =
+                        "Olá, " + reserva.getUsuario().getNome() + ",\n\n" +
+                            "Sua reserva [" + reserva.getId() + "] foi realizada com sucesso!\n\n" +
+                            "Detalhes da reserva:\n" +
+                            "- Quantidade de notebooks: " + reserva.getQuantidade() + "\n" +
+                            "- Horário inicial: " + reserva.getHorarioInicial() + "\n" +
+                            "- Horário final: " + reserva.getHorarioFinal() + "\n" +
+                            (reserva.getObservacoes() != null && !reserva.getObservacoes().isEmpty()
+                                    ? "- Observações: " + reserva.getObservacoes() + "\n\n"
+                                    : "\n") +
+                            "Quando chegar o horário de retirada, você receberá um novo e-mail de aviso.\n\n" +
+                            "Obrigado por utilizar o sistema NotReserve!";
+                eMailSender.enviarEmailSimples(reserva.getUsuario().getEmail(), eMailSubject, eMail);
             } catch (Exception e) {
                 System.err.println("" + e);
                 mensagem += "Erro interno durante o precesso de reserva!\n";

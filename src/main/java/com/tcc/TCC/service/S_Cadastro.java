@@ -8,7 +8,10 @@ import com.tcc.TCC.repository.R_NivelPoder;
 import com.tcc.TCC.repository.R_Notebook;
 import com.tcc.TCC.repository.R_Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 @Service
 public class S_Cadastro {
@@ -18,6 +21,10 @@ public class S_Cadastro {
     private R_NivelPoder rNivelPoder;
     @Autowired
     private R_Notebook rNotebook;
+    @Autowired
+    private S_EMailSender eMailSender;
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     /**
      * Realiza o cadastro de um novo usuário
@@ -68,7 +75,8 @@ public class S_Cadastro {
             mensagem += "Favor selecione um valor válido!\n";
         }
         for (M_Usuario user: rUsuario.findAll()){
-            if (user.getMatricula().equals(matricula) || user.getEmail().equals(email)){
+            if (user.getMatricula().equals(matricula) || user.getEmail().equals(email) ||
+                    user.getNome().toLowerCase(Locale.getDefault()).equals(nome.trim().toLowerCase(Locale.getDefault()))){
                 sucesso = false;
                 mensagem += "Esse usuário já existe!";
             }
@@ -82,9 +90,19 @@ public class S_Cadastro {
                 mUsuario.setMatricula(matricula);
                 mUsuario.setEmail(email);
                 mUsuario.setSenha(senha);
+//                mUsuario.setSenha(passwordEncoder.encode(senha));
                 mUsuario.setPoder(poder);
                 rUsuario.save(mUsuario);
                 mensagem += "Usuário cadastrado com sucesso!";
+                String eMailSubject = "Bem-vindo ao NotReserve!";
+                String eMail =
+                        "Olá, " + mUsuario.getNome() + "\n\n" +
+                            "Seu cadastro foi realizado com sucesso no sistema NotReserve! \n\n" +
+                            "Aqui estão seus dados de acesso:\n" +
+                            "- Matrícula: " + mUsuario.getMatricula() + "\n" +
+                            "- Senha: " + senha + "\n\n" +
+                            "Agora você já pode acessar o sistema e começar a utilizar os nossos serviços.";
+                eMailSender.enviarEmailSimples(mUsuario.getEmail(), eMailSubject, eMail);
             }catch (Exception e){
                 sucesso = false;
                 mensagem += "Erro interno durante o cadastro!";

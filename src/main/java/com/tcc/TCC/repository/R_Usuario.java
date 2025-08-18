@@ -8,10 +8,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Repository
-public interface R_Usuario extends JpaRepository<M_Usuario,Long> {
+public interface R_Usuario extends JpaRepository<M_Usuario, Long> {
     @Query(value = "select * from tcc.usuario " +
             "where matricula = :matricula and " +
             "senha = :senha", nativeQuery = true)
     M_Usuario getusuarioByLoginSenha(@Param("matricula") String matricula,
-                                              @Param("senha") String senha);
+                                     @Param("senha") String senha);
+
+    @Query(value = "select * " +
+            "from tcc.usuario " +
+            "where :matricula = matricula", nativeQuery = true)
+    M_Usuario getByMatricula(@Param("matricula") String matricula);
 }

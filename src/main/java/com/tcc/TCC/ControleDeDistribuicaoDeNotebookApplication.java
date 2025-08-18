@@ -29,7 +29,7 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 //quantidade e especificidade se complentam
 //To[do]: itens extras recebem confirmação de existencia, precisa ser pedido com pelo menos 3d de antecedencia
 //Todo: Dias max e mínimo e horários (tempo máximo por professor para reservervar 72h)
-//Todo: Filtro por professor, por data
+//To[do]: Filtro por professor, por data
 //Limitar número de reservas por professores = 30 max
 //Campo observação na reserva para saber a atividade do professor e assim se necessário remanejar
 //Poder deixar notebook inativo, por baixa ou avaria no mesmo
@@ -38,4 +38,6 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 //To[do]: Seleção múltipla
 //Inativar notebook
 //Limitar a reserva específica para o limite de 30 notebooks
-//Todo: Enviar eMails para cada ação realizada pelo sistema (reserva, cadastro, atestamento, em andamento, atrasada...)
+//To?do: Enviar eMails para cada ação realizada pelo sistema (reserva, cadastro, atestamento, em andamento, atrasada...)
+//Todo: usuario nome unique
+//Todo: https://www.youtube.com/watch?v=oeni_9g7too&t=9468s Spring Security

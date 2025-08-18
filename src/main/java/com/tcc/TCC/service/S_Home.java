@@ -16,6 +16,8 @@ public class S_Home {
     private R_Reserva rReserva;
     @Autowired
     private R_NotReserve rNotReserve;
+    @Autowired
+    private S_EMailSender eMailSender;
 
     /**
      * @return Reservas atuais
@@ -81,6 +83,16 @@ public class S_Home {
                 mReserva.setHorarioFinal(LocalDateTime.now());
                 rReserva.save(mReserva);
                 mensagem += "Cancelamento realizado com sucesso!\n";
+                String eMailSubject = "Reserva Cancelada";
+                String eMail = "Olá, " + mReserva.getUsuario().getNome() + ",\n\n" +
+                        "A sua reserva [" + mReserva.getId() + "] foi cancelada com sucesso. \n\n" +
+                        "Detalhes da reserva:\n" +
+                        "- Quantidade: " + mReserva.getQuantidade() + "\n" +
+                        "- Horário inicial: " + mReserva.getHorarioInicial() + "\n" +
+                        "- Horário final: " + mReserva.getHorarioFinal() + "\n\n" +
+                        "Se precisar, você pode fazer uma nova reserva a qualquer momento pelo sistema.\n\n" +
+                        "Obrigado por contar com a gente!\n\n";
+                eMailSender.enviarEmailSimples(mReserva.getUsuario().getEmail(),eMailSubject,eMail);
             }else {
                 sucesso = false;
                 mensagem += "Não é possível cancelar esta reserva!\n";
@@ -92,6 +104,7 @@ public class S_Home {
         }
         return new M_Resposta(sucesso,mensagem);
     }
+
     public Object getSpecificReserve(Long id){
         M_Reserva res = rReserva.findElementById(id);
         M_ViewReserva mViewReserva = new M_ViewReserva();
