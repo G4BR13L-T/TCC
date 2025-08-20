@@ -37,6 +37,9 @@ $('#btEntrar').on("click",function(){
                 icon: response.sucesso ? "success" : "error",
                 title: response.mensagem
             });
+        },
+        error: function (){
+            alert('deu mierrrda!');
         }
     });
 })

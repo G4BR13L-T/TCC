@@ -10,7 +10,7 @@
 <!--                <li class="nav-item">-->
 <!--                    <a class="nav-link active" aria-current="page" href="#"></a>-->
 <!--                </li>-->
-                <li class="nav-item dropdown" th:if="${usuario.poder.id == 1 || usuario.poder.id == 2}">
+                <li class="nav-item dropdown" th:if="${usuario.poder.id != 3}">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">Cadastro</a>
                     <ul class="dropdown-menu">
@@ -25,7 +25,7 @@
                     <a id="resnote" class="nav-link" href="/reserva-notebook">Reservar</a>
                 </li>
                 <li class="nav-item">
-                    <a id="inanote" class="nav-link" href="/inativar-notebook">Inativar Notebook</a>
+                    <a id="inanote" class="nav-link" th:if="${usuario.poder.id != 3}" href="/inativar-notebook">Inativar Notebook</a>
                 </li>
 <!--                <li class="nav-item">-->
 <!--                    <a class="nav-link" href="/consumo">Consumo</a>-->

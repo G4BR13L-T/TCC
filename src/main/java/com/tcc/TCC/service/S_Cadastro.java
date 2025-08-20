@@ -8,7 +8,8 @@ import com.tcc.TCC.repository.R_NivelPoder;
 import com.tcc.TCC.repository.R_Notebook;
 import com.tcc.TCC.repository.R_Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
@@ -23,8 +24,12 @@ public class S_Cadastro {
     private R_Notebook rNotebook;
     @Autowired
     private S_EMailSender eMailSender;
-//    @Autowired
-//    private PasswordEncoder passwordEncoder;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public S_Cadastro() {
+        this.passwordEncoder = new BCryptPasswordEncoder(12);
+    }
 
     /**
      * Realiza o cadastro de um novo usuário
@@ -89,8 +94,8 @@ public class S_Cadastro {
                 mUsuario.setNome(nome);
                 mUsuario.setMatricula(matricula);
                 mUsuario.setEmail(email);
-                mUsuario.setSenha(senha);
-//                mUsuario.setSenha(passwordEncoder.encode(senha));
+//                mUsuario.setSenha(senha);
+                mUsuario.setSenha(passwordEncoder.encode(senha));
                 mUsuario.setPoder(poder);
                 rUsuario.save(mUsuario);
                 mensagem += "Usuário cadastrado com sucesso!";

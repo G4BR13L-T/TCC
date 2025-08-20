@@ -4,6 +4,9 @@ import com.tcc.TCC.model.M_Resposta;
 import com.tcc.TCC.model.M_Usuario;
 import com.tcc.TCC.service.S_Home;
 import com.tcc.TCC.service.S_Login;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,8 +45,10 @@ public class C_Login {
     @ResponseBody
     public M_Resposta postlogin(@RequestParam("matricula") String matricula,
                                 @RequestParam("senha") String senha,
-                                HttpSession session) {
-        M_Resposta response = sLogin.validaLogin(matricula, senha);
+                                HttpSession session,
+                                HttpServletRequest request,
+                                HttpServletResponse servletResponse) {
+        M_Resposta response = sLogin.validaLogin(matricula, senha, request, servletResponse);
         if (response.getObject() != null) {
             session.setAttribute("usuario", response.getObject());
         }
@@ -54,6 +59,7 @@ public class C_Login {
     @ResponseBody
     public boolean getLogout(HttpSession session) {
         session.setAttribute("usuario", null);
+        session.invalidate();
         return true;
     }
 }
