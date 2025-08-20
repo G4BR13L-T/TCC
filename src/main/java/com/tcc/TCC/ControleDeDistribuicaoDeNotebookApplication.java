@@ -39,5 +39,5 @@ public class ControleDeDistribuicaoDeNotebookApplication {
 //Inativar notebook
 //Limitar a reserva específica para o limite de 30 notebooks
 //To?do: Enviar eMails para cada ação realizada pelo sistema (reserva, cadastro, atestamento, em andamento, atrasada...)
-//Todo: usuario nome unique
-//Todo: https://www.youtube.com/watch?v=oeni_9g7too&t=9468s Spring Security
+//usuario nome unique
+//To!do: https://www.youtube.com/watch?v=oeni_9g7too&t=9468s Spring Security
